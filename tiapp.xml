@@ -36,4 +36,5 @@
     </iphone>
     <android xmlns:android="http://schemas.android.com/apk/res/android"/>
     <modules/>
+    <property name="ti.android.google.map.api.key">0r72MaMeYRwCdkp_S9xu9Dvm_PVzaxuMAZjOv-g</property>
 </ti:app>

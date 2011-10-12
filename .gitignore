@@ -3,4 +3,3 @@ tmp
 *.pyc
 *.pyo
 build/*
-tiapp.xml
