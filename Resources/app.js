@@ -1,64 +1,60 @@
-// this sets the background color of the master UIView (when there are no windows/tab groups on it)
-Titanium.UI.setBackgroundColor('#000');
+Titanium.UI.setBackgroundColor('#9A1011');
 
-// create tab group
-var tabGroup = Titanium.UI.createTabGroup();
-
-
-//
-// create base UI tab and root window
-//
-var win1 = Titanium.UI.createWindow({  
-    title:'Tab 1',
-    backgroundColor:'#fff'
-});
-var tab1 = Titanium.UI.createTab({  
-    icon:'KS_nav_views.png',
-    title:'Tab 1',
-    window:win1
+var tabGroup = Titanium.UI.createTabGroup({id:'tabGroup1'});
+//'Sun', 'Restaurants', 'TCAT'
+var win1 = Titanium.UI.createWindow({
+	className:'win1',
+	title:'Sun',
+	url:'sun.js'
 });
 
-var label1 = Titanium.UI.createLabel({
-	color:'#999',
-	text:'I am Window 1',
-	font:{fontSize:20,fontFamily:'Helvetica Neue'},
-	textAlign:'center',
-	width:'auto'
+var tab1 = Titanium.UI.createTab({
+	id:'tab1',
+	icon:'images/tabs/KS_nav_mashup.png',
+	title:'Sun',
+	window:win1
 });
 
-win1.add(label1);
-
-//
-// create controls tab and root window
-//
-var win2 = Titanium.UI.createWindow({  
-    title:'Tab 2',
-    backgroundColor:'#fff'
-});
-var tab2 = Titanium.UI.createTab({  
-    icon:'KS_nav_ui.png',
-    title:'Tab 2',
-    window:win2
+var win2 = Titanium.UI.createWindow({
+	className:'win2',
+	title:'TCAT',
+	url:'tcat.js'
 });
 
-var label2 = Titanium.UI.createLabel({
-	color:'#999',
-	text:'I am Window 2',
-	font:{fontSize:20,fontFamily:'Helvetica Neue'},
-	textAlign:'center',
-	width:'auto'
+var tab2 = Titanium.UI.createTab({
+	id:'tab2',
+	icon:'images/tabs/KS_nav_mashup.png',
+	title:'TCAT',
+	window:win2
 });
 
-win2.add(label2);
+
+var win3 = Titanium.UI.createWindow({
+	className:'win3',
+	title:'Food',
+	url:'food.js'
+});
+
+var tab3 = Titanium.UI.createTab({
+	id:'tab3',
+	icon:'images/tabs/KS_nav_mashup.png',
+	title:'Food',
+	window:win3
+});
 
 
+tabGroup.addTab(tab1);
+tabGroup.addTab(tab2);
+tabGroup.addTab(tab3);
 
-//
-//  add tabs
-//
-tabGroup.addTab(tab1);  
-tabGroup.addTab(tab2);  
+tabGroup.addEventListener('open',function()
+{
+	// set background color back to white after tab group transition
+	Titanium.UI.setBackgroundColor('#fff');
+});
 
-
-// open tab group
-tabGroup.open();
+tabGroup.setActiveTab(0);
+// open tab group with a transition animation
+tabGroup.open({
+	transition:Titanium.UI.iPhone.AnimationStyle.FLIP_FROM_LEFT
+});
