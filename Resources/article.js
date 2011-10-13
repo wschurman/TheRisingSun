@@ -22,8 +22,9 @@ var l1 = Titanium.UI.createLabel({
 	id:'article_content',
 	text:win.data.content,
 	font: {fontSize: 16},
-	width: '100%',
+	width: '90%',
 	height:'auto',
+	color:"#000"
 });
 
 textWrap.add(l1); 

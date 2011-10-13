@@ -1,10 +1,11 @@
-Titanium.UI.setBackgroundColor('#9A1011');
+Titanium.UI.setBackgroundColor('#FFF');
 
 var tabGroup = Titanium.UI.createTabGroup({id:'tabGroup1'});
 //'Sun', 'Restaurants', 'TCAT'
 var win1 = Titanium.UI.createWindow({
 	className:'win1',
 	title:'Sun',
+	backgroundColor: '#fff',
 	url:'sun.js'
 });
 
@@ -18,6 +19,7 @@ var tab1 = Titanium.UI.createTab({
 var win2 = Titanium.UI.createWindow({
 	className:'win2',
 	title:'TCAT',
+	backgroundColor: '#fff',
 	url:'tcat.js'
 });
 
@@ -32,6 +34,7 @@ var tab2 = Titanium.UI.createTab({
 var win3 = Titanium.UI.createWindow({
 	className:'win3',
 	title:'Food',
+	backgroundColor: '#fff',
 	url:'food.js'
 });
 

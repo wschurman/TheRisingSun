@@ -1,6 +1,11 @@
 
 var win = Titanium.UI.currentWindow;
 
+var isAndroid = false;
+if (Titanium.Platform.name == 'android') {
+	isAndroid = true;
+}
+
 var url = "http://wschurman.com/supports/test_restaurants.php";
 
 var mapview = Titanium.Map.createView({
@@ -30,13 +35,17 @@ var xhr = Ti.Network.createHTTPClient({
 				title:restaurant.name,
 				subtitle:restaurant.description,
 				pincolor:Titanium.Map.ANNOTATION_RED,
+				pinImage: (isAndroid) ? "images/map-pin.png" : "",
 				rightButton: Titanium.UI.iPhone.SystemButton.DISCLOSURE,
 				raw: restaurant,
 				animate:true
 	        });
 	        annotations.push(annotation);
+	        if (isAndroid) {
+	        	mapview.addAnnotation(annotation);
+	        }
 	    }
-		mapview.addAnnotations(annotations);
+		if (!isAndroid) mapview.addAnnotations(annotations);
 	},
     onerror: function(e) {
     	Ti.API.debug("STATUS: " + this.status);
@@ -57,9 +66,12 @@ mapview.addEventListener('click',function(evt)
 	var annotation = evt.annotation;
 	var title = evt.title;
 	var clickSource = evt.clicksource;
-
-	if (evt.clicksource == 'rightButton')
-	{
+	
+	if (evt.clicksource == 'rightButton' || 
+		(isAndroid && 
+			(evt.clicksource == 'annotation' ||
+			 evt.clicksource == 'title' ||
+			 evt.clicksource == 'subtitle'))) {
 		var w = Ti.UI.createWindow({
 			title:annotation.raw.name,
 			url:"restaurant.js",
