@@ -2,6 +2,7 @@ var win = Titanium.UI.currentWindow;
 var isAndroid = (Titanium.Platform.name == 'android');
 
 var hasImage = win.data.thumb != "";
+var date = new Date(win.data.date);
 
 var scrollView = Titanium.UI.createScrollView({
 	contentWidth:"100%",
@@ -62,7 +63,7 @@ title_text.addEventListener('click', function() {
 
 var date_text = Ti.UI.createLabel({
 	id: 'article_date',
-	text: "Parse this: " + win.data.date,
+	text: date.toLocaleDateString() + " " + date.toLocaleTimeString(),
 	font: {fontSize: 13},
 	color: "#9B9B9B",
 	right: 5,
@@ -93,7 +94,7 @@ if (hasImage) {
 	author_text = Ti.UI.createLabel({
 		id:"author_text",
 		top: 10,
-		left: "160px",
+		left: "170px",
 		text: "by " + win.data.author,
 		color:"#383838",
 		width:100,
@@ -103,12 +104,13 @@ if (hasImage) {
 	comments_button = Titanium.UI.createButton({
 		id:"comments_button",
 		title: win.data.comment_count + " comments",
-		width:150,
-		height: 40,
+		width:140,
+		height: (isAndroid) ? 35 : 25,
 		top: 30,
-		left: "160px",
-		//font: {fontSize: 22},
-		//backgroundColor:'#EBE9E6',
+		left: "170px",
+		font: {
+			fontSize: 14,
+		},
 		color: "#000"
 	});
 	
@@ -130,12 +132,13 @@ if (hasImage) {
 	comments_button = Titanium.UI.createButton({
 		id:"comments_button_noimg",
 		title: win.data.comment_count + " comments",
-		width:150,
-		height: 40,
-		top: 30,
+		width:140,
+		height: (isAndroid) ? 35 : 25,
+		top: 10,
 		right: 0,
-		//font: {fontSize: 22},
-		//backgroundColor:'#EBE9E6',
+		font: {
+			fontSize: 14,
+		},
 		color: "#000"
 		
 	});
@@ -146,7 +149,13 @@ if (hasImage) {
 
 comments_button.addEventListener('click', function()
 {
-	// open comments
+	var w = Ti.UI.createWindow({
+		title:"Comments",
+		url:"comments.js",
+		backgroundColor: '#fff',
+		data:win.data.comments
+	});
+	Titanium.UI.currentTab.open(w,{animated:true});
 });
 
 var body_text = Titanium.UI.createLabel({
@@ -163,7 +172,7 @@ var read_more = Ti.UI.createButton({
 	id:"read_more",
 	title: "Read More",
 	width: "100%",
-	height: 45,
+	height: 50,
 	top: 5
 });
 

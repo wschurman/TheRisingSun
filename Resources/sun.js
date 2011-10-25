@@ -1,10 +1,11 @@
 
 /* Configurable Params */
+var baseTitle = "The Cornell Daily Sun";
+var baseTitleShort = "Sun";
 var url = "http://wschurman.com/supports/test_sun.php";
 
-
-
 var win = Titanium.UI.currentWindow;
+win.title = baseTitle;
 
 var isAndroid = (Titanium.Platform.name == 'android');
 var tableData = [];
@@ -95,12 +96,16 @@ win.add(shadow);
  */
 
 function renderCategories(categories) {
+	// TODO: add all cat button
 	currLeftOffset = 5;
 	for (j = 0; j < categories.length; j++) {
 		
 		t_view = Ti.UI.createView({
 			backgroundColor:'#6E1618',
-			borderRadius:10,borderWidth:0,borderColor:'#336699',
+			borderRadius:10,
+			borderWidth:0,
+			borderColor:'#336699',
+			backgroundSelectedColor:'#3D090A',
 			width:90,
 			height:20,
 			top: 5,
@@ -123,8 +128,19 @@ function renderCategories(categories) {
 		currLeftOffset += 95;
 		
 		t_view.addEventListener('click',function(e) {
-			refreshContent(e.source.id, "");
+			refreshContent(e.source.raw.id, "");
+			win.title = baseTitleShort + " - " + e.source.raw.name;
 		});
+		
+		if (!isAndroid) {
+			t_view.addEventListener('touchstart', function(e) {
+				e.source.backgroundColor = "#3D090A";
+			});
+			t_view.addEventListener('touchend', function(e) {
+				e.source.backgroundColor = "#6E1618";
+			});
+		}
+		
 	}
 	scrollView.contentWidth = currLeftOffset;
 }
