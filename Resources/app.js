@@ -1,6 +1,9 @@
 Titanium.UI.setBackgroundColor('#FFF');
 
-var tabGroup = Titanium.UI.createTabGroup({id:'tabGroup1'});
+var tabGroup = Titanium.UI.createTabGroup({
+	id:'tabGroup1',
+	barColor:'#111'
+});
 //'Sun', 'Restaurants', 'TCAT'
 var win1 = Titanium.UI.createWindow({
 	className:'win1',
