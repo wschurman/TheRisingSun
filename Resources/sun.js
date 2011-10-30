@@ -7,6 +7,13 @@ var url = "http://wschurman.com/supports/test_sun.php";
 var win = Titanium.UI.currentWindow;
 win.title = baseTitle;
 
+win.orientationModes = [
+    Titanium.UI.PORTRAIT,
+    Titanium.UI.UPSIDE_PORTRAIT,
+    Titanium.UI.LANDSCAPE_LEFT,
+    Titanium.UI.LANDSCAPE_RIGHT
+];
+
 var isAndroid = (Titanium.Platform.name == 'android');
 var tableData = [];
 var json, articles, article, i, j, row, view, titleLabel,
