@@ -6,7 +6,7 @@ var win = Titanium.UI.currentWindow;
 
 var fromField = Titanium.UI.createTextField({
 	color:'#000',
-	top:10,
+	top:50,
 	left:10,
 	width:250,
 	height:40,
@@ -18,7 +18,7 @@ var fromField = Titanium.UI.createTextField({
 
 var toField = Titanium.UI.createTextField({
 	color:'#000',
-	top:70,
+	top:110,
 	left:10,
 	width:250,
 	height:40,

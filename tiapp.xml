@@ -23,6 +23,7 @@
     <navbar-hidden>false</navbar-hidden>
     <analytics>true</analytics>
     <guid>afc13128-4053-4273-bc4e-e8e11d7866a5</guid>
+    <property name="ti.android.google.map.api.key">0nHGiLhyEI3bZuqeADF6puI2eRTbihyI3nWgz3w</property>
     <iphone>
         <orientations device="iphone">
             <orientation>Ti.UI.PORTRAIT</orientation>
@@ -36,5 +37,4 @@
     </iphone>
     <android xmlns:android="http://schemas.android.com/apk/res/android"/>
     <modules/>
-    <property name="ti.android.google.map.api.key">0r72MaMeYRwCdkp_S9xu9Dvm_PVzaxuMAZjOv-g</property>
 </ti:app>
