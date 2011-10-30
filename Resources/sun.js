@@ -1,116 +1,228 @@
 
-var win = Titanium.UI.currentWindow;
-
-var isAndroid = false;
-if (Titanium.Platform.name == 'android') {
-	isAndroid = true;
-}
-
+/* Configurable Params */
+var baseTitle = "The Cornell Daily Sun";
+var baseTitleShort = "Sun";
 var url = "http://wschurman.com/supports/test_sun.php";
 
-var table = Ti.UI.createTableView();
+var win = Titanium.UI.currentWindow;
+win.title = baseTitle;
+
+var isAndroid = (Titanium.Platform.name == 'android');
 var tableData = [];
-var json, articles, article, i, row, view, titleLabel, contentLabel, h, c;
+var json, articles, article, i, j, row, view, titleLabel,
+	contentLabel, h, contentTopPosition, c, hasImage, t_view, t_label, currLeftOffset;
+var categories, catRendered = false;
+var currCat = "";
+
+/* Initial Layout Elements and Calculations*/
+
+var table = Ti.UI.createTableView({
+	top: 30
+});
+var scrollView = Titanium.UI.createScrollView({
+	contentWidth:600,
+	contentHeight:30,
+	top:0,
+	showVerticalScrollIndicator:false,
+	showHorizontalScrollIndicator:false,
+	height:30,
+	width:"100%",
+	backgroundColor:'#9A1011',
+	backgroundGradient:{
+		type:'linear',
+		colors:[{color:'#B75657',position:0.0},{color:'#9A1011',position:1.0}]
+	}
+});
+
+var shadow = Ti.UI.createView({
+	backgroundImage:"images/shadow_b.png",
+	height:5,
+	width: "100%",
+	top: 30
+})
 
 if (isAndroid) {
-	h = 120;
+	h = 150;
+	contentTopPosition = 40;
 } else {
-	h = 80;
+	h = 110;
+	contentTopPosition = 30;
 }
 
-var xhr = Ti.Network.createHTTPClient({
-    onload: function() {
-    // Ti.API.debug(this.responseText);
- 
-	    json = JSON.parse(this.responseText);
-	    for (i = 0; i < json.articles.length; i++) {
-	        article = json.articles[i];
-	        
-	        row = Ti.UI.createTableViewRow({
-	            height:h,
-	            hasChild:true,
-	            //hasDetail:(i < 2) // for future unread icons
-	        });
-	        
-	        view = Ti.UI.createView({
-	        	top:5,
-	        	left:5,
-	        	right:5,
-	        	bottom:5,
-	        	touchEnabled:false
-	        })
-	        
-	        titleLabel = Ti.UI.createLabel({
-	            text: article.title,
-	            font:{
-	                fontSize:'18dp',
-	            	fontWeight:'bold'
-	        	},
-	        	left:72,
-	        	top:(isAndroid) ? 10 : -30,
-	        	color:'#000',
-	        	touchEnabled:false
-	        });
-	        c = article.content.substr(0, 100);
-	        if (isAndroid && article.content.length > 47) {
-	        	c = article.content.substr(0, 50) + "..."
-	        }
-	        contentLabel = Ti.UI.createLabel({
-		        text: c,
-		        font:{
-		            fontSize:'16dp'
-		        },
-		        left:72,
-		        top:(isAndroid) ? 40 : 30,
-		        color:'#333',
-		        touchEnabled:false
-	        });
-	 		var img;
-	 		var media = article.thumb;
-			if (Titanium.Platform.name == 'android') 
-			{
-				// iphone moved to a single image property - android needs to do the same
-				img = Ti.UI.createImageView({
-					image:media,
-					left:5,
-					height:60,
-					width:60
-				});
-
-			}
-			else
-			{
-				img = Ti.UI.createImageView({
-					image:media,
-					left:5,
-					height:60,
-					width:60
-				});
-				
-			}
-	        view.add(titleLabel);
-	        view.add(contentLabel);
-	        view.add(img);
-	        row.add(view);
-	        tableData.push(row);
-	        row.url = article.permalink;
-	        row.raw = article;
-	    }
- 		table.setData(tableData);
-	},
-    onerror: function(e) {
-    	Ti.API.debug("STATUS: " + this.status);
-    	Ti.API.debug("TEXT:   " + this.responseText);
-    	Ti.API.debug("ERROR:  " + e.error);
-    	alert('There was an error retrieving the remote data. Try again.');
-    },
-    timeout:5000
+var r = Titanium.UI.createButton({
+	systemButton:Titanium.UI.iPhone.SystemButton.REFRESH
 });
- 
-xhr.open("GET", url);
-xhr.send();
- 
+r.addEventListener('click',function()
+{
+	// reload feed
+	refreshContent(currCat, "");
+});
+
+if (!isAndroid) Titanium.UI.currentWindow.setRightNavButton(r);
+
+/* AJAX Request */
+
+function refreshContent(cat, last) {
+	currCat = cat;
+	var xhr = Ti.Network.createHTTPClient({
+	    onload: function() {
+		    json = JSON.parse(this.responseText);
+		    if(!catRendered) {
+		    	renderCategories(json.categories);
+		    	catRendered = true;
+		    }
+		    refreshTable(json);
+		},
+	    onerror: function(e) {
+	    	Ti.API.debug("STATUS: " + this.status);
+	    	Ti.API.debug("TEXT:   " + this.responseText);
+	    	Ti.API.debug("ERROR:  " + e.error);
+	    	alert('There was an error retrieving the remote data. Try again.');
+	    },
+	    timeout:5000
+	});
+	 
+	xhr.open("GET", url+"?cat="+cat+"&last="+last);
+	xhr.send();
+}
+
+refreshContent("", "");
+win.add(scrollView);
 win.add(table);
+win.add(shadow);
+
+/* renderCategories
+ * Renders the top category bar contents
+ */
+
+function renderCategories(categories) {
+	// TODO: add all cat button
+	currLeftOffset = 5;
+	for (j = 0; j < categories.length; j++) {
+		
+		t_view = Ti.UI.createView({
+			backgroundColor:'#6E1618',
+			borderRadius:10,
+			borderWidth:0,
+			borderColor:'#336699',
+			backgroundSelectedColor:'#3D090A',
+			width:90,
+			height:20,
+			top: 5,
+			left:currLeftOffset,
+			raw:categories[j]
+		});
+		scrollView.add(t_view);
+		
+		t_label = Ti.UI.createLabel({
+			text:categories[j].name,
+			font:{fontSize:13},
+			color:'#fff',
+			width:'auto',
+			textAlign:'center',
+			height:20,
+			touchEnabled:false
+		});
+		t_view.add(t_label);
+		
+		currLeftOffset += 95;
+		
+		t_view.addEventListener('click',function(e) {
+			refreshContent(e.source.raw.id, "");
+			win.title = baseTitleShort + " - " + e.source.raw.name;
+		});
+		
+		if (!isAndroid) {
+			t_view.addEventListener('touchstart', function(e) {
+				e.source.backgroundColor = "#3D090A";
+			});
+			t_view.addEventListener('touchend', function(e) {
+				e.source.backgroundColor = "#6E1618";
+			});
+		}
+		
+	}
+	scrollView.contentWidth = currLeftOffset;
+}
+
+/* refreshTable
+ * Used for initial data entry and to repopulate table
+ */
+
+function refreshTable(json) {
+	tableData = [];
+	table.setData([]);
+	for (i = 0; i < json.articles.length; i++) {
+        article = json.articles[i];
+        
+        row = Ti.UI.createTableViewRow({
+            height: h,
+            //hasChild:true,
+            //hasDetail:(i < 2) // for future unread icons
+        });
+        
+        hasImage = article.thumb != "";
+        
+        view = Ti.UI.createView({
+        	top:5,
+        	left:5,
+        	right:5,
+        	bottom:5,
+        	touchEnabled:false
+        })
+        
+        titleLabel = Ti.UI.createLabel({
+            text: article.title,
+            font:{
+                fontSize:'16dp',
+            	fontFamily:"Georgia",
+        	},
+        	left: 5,
+        	//top: 80,
+        	height:30,
+        	width: (hasImage) ? "70%" : "100%",
+        	//top:(isAndroid) ? 10 : -30,
+        	top:5,
+        	color:'#000',
+        	touchEnabled:false
+        });
+        c = article.content.substr(0, 100);
+        if (isAndroid && article.content.length > 47) {
+        	c = article.content.substr(0, 50) + "..."
+        }
+        contentLabel = Ti.UI.createLabel({
+	        text: c,
+	        font:{
+	            fontSize:'16dp'
+	        },
+	        left:5,
+	        top:contentTopPosition,
+	        width: (hasImage) ? "70%" : "100%",
+	        color:'#333',
+	        touchEnabled:false
+        });
+ 		var img;
+ 		var media = article.thumb;
+ 		if (hasImage) {
+			img = Ti.UI.createImageView({
+				image:media,
+				right:5,
+				height:70,
+				width:70
+			});
+			view.add(img);
+		}
+        view.add(titleLabel);
+        view.add(contentLabel);
+        row.add(view);
+        tableData.push(row);
+        row.url = article.permalink;
+        row.raw = article;
+    }
+	table.setData(tableData);
+}
+
+/* Listeners */
 
 table.addEventListener('click',function(e) {
 	var w = Ti.UI.createWindow({
@@ -119,7 +231,5 @@ table.addEventListener('click',function(e) {
 		backgroundColor: '#fff',
 		data:e.row.raw
 	});
-	//var wb = Ti.UI.createWebView({url:e.row.raw.permalink});
-	//w.add(wb);
 	Titanium.UI.currentTab.open(w,{animated:true});
 });
