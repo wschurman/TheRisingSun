@@ -23,7 +23,7 @@ var win2 = Titanium.UI.createWindow({
 	className:'win2',
 	title:'TCAT',
 	backgroundColor: '#fff',
-	url:'tcat.js'
+	url:'TCAT/tcat.js'
 });
 
 var tab2 = Titanium.UI.createTab({
