@@ -1,3 +1,30 @@
+/*var win = Titanium.UI.currentWindow;
+
+var mountainView = Titanium.Map.createAnnotation({
+    latitude:33.390749,
+    longitude:-84.081651,
+    title:"Appcelerator Headquarters",
+    subtitle:'Mountain View, CA',
+   // pincolor:Titanium.Map.ANNOTATION_RED,
+    image:'images/map-pin.png',
+    animate:true,
+    leftButton: 'images/navigation-down-button.png',
+    myid:1 // CUSTOM ATTRIBUTE THAT IS PASSED INTO EVENT OBJECTS
+});
+ 
+var mapview = Titanium.Map.createView({
+    mapType: Titanium.Map.STANDARD_TYPE,
+    region: {latitude:33.74511, longitude:-84.38993, 
+            latitudeDelta:0.01, longitudeDelta:0.01},
+    animate:true,
+    regionFit:true,
+    userLocation:true,
+    annotations:[mountainView]
+});
+ 
+win.add(mapview);*/
+
+
 
 var win = Titanium.UI.currentWindow;
 
@@ -33,13 +60,30 @@ var xhr = Ti.Network.createHTTPClient({
 	        	latitude:restaurant.latitude,
 				longitude:restaurant.longitude,
 				title:restaurant.name,
-				subtitle:restaurant.description,
+				subtitle:restaurant.url,
 				pincolor:Titanium.Map.ANNOTATION_RED,
-				pinImage: (isAndroid) ? "images/map-pin.png" : "",
-				rightButton: Titanium.UI.iPhone.SystemButton.DISCLOSURE,
+				//pinImage: 'images/map-pin.png',
+				leftButton: "images/map-pin.png",
+				//pinImage: (isAndroid) ? "images/map-pin.png" : "",
+				//leftButton: 'images/tasks_off.png',
 				raw: restaurant,
 				animate:true
 	        });
+	        if(restaurant.avg_rating == 1){
+				annotation.rightButton = 'one';
+			}
+			else if(restaurant.avg_rating == 2){
+				annotation.rightButton = 'two';
+			}
+			else if(restaurant.avg_rating == 3){
+				annotation.rightButton = 'three';
+			}
+			else if(restaurant.avg_rating == 4){
+				annotation.rightButton = 'four';
+			}
+			else if(restaurant.avg_rating == 5){
+				annotation.rightButton = 'five';
+			}
 	        annotations.push(annotation);
 	        if (isAndroid) {
 	        	mapview.addAnnotation(annotation);
@@ -70,8 +114,7 @@ mapview.addEventListener('click',function(evt)
 	if (evt.clicksource == 'rightButton' || 
 		(isAndroid && 
 			(evt.clicksource == 'annotation' ||
-			 evt.clicksource == 'title' ||
-			 evt.clicksource == 'subtitle'))) {
+			 evt.clicksource == 'title'))) {
 		var w = Ti.UI.createWindow({
 			title:annotation.raw.name,
 			url:"restaurant.js",
@@ -79,4 +122,19 @@ mapview.addEventListener('click',function(evt)
 		});
 		Titanium.UI.currentTab.open(w,{animated:true});
 	}
+	else if(evt.clicksource =='leftButton'){
+		var w = Ti.UI.createWindow({
+			title:annotation.raw.name + ' User Reviews',
+			url:"restaurant.js",
+			data:annotation.raw
+		});
+	}
+	else if(evt.clicksource =='subtitle'){
+		var w = Ti.UI.createWindow({
+			title:annotation.raw.name,
+			url:"restaurant.js",
+			data:annotation.raw
+		});
+	}
+	
 });
