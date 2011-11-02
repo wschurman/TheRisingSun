@@ -79,7 +79,7 @@ var xhr = Ti.Network.createHTTPClient({
 				annotation.rightButton = 'images/3_stars.png';
 			}
 			else if(restaurant.avg_rating == 4){
-				annotation.rightButton = 'images/4_starsc.png';
+				annotation.rightButton = 'images/4_stars.png';
 			}
 			else if(restaurant.avg_rating == 5){
 				annotation.rightButton = 'images/5_stars.png';
