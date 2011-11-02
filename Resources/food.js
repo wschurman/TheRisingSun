@@ -62,28 +62,27 @@ var xhr = Ti.Network.createHTTPClient({
 				title:restaurant.name,
 				subtitle:restaurant.url,
 				pincolor:Titanium.Map.ANNOTATION_RED,
-				//pinImage: 'images/map-pin.png',
-				leftButton: "images/map-pin.png",
-				//pinImage: (isAndroid) ? "images/map-pin.png" : "",
-				//leftButton: 'images/tasks_off.png',
+				rightButton: 'images/map-pin.png',
 				raw: restaurant,
 				animate:true
 	        });
+	        /*
 	        if(restaurant.avg_rating == 1){
-				annotation.rightButton = 'one';
+				annotation.leftButton = 'images/1_stars.png';
 			}
 			else if(restaurant.avg_rating == 2){
-				annotation.rightButton = 'two';
+				annotation.leftButton = 'images/2_stars.png';
 			}
 			else if(restaurant.avg_rating == 3){
-				annotation.rightButton = 'three';
+				annotation.leftButton = 'images/3_stars.png';
 			}
 			else if(restaurant.avg_rating == 4){
-				annotation.rightButton = 'four';
+				annotation.leftButton = 'images/map-pin2.png';
 			}
 			else if(restaurant.avg_rating == 5){
-				annotation.rightButton = 'five';
+				annotation.leftButton = 'images/5_stars.png';
 			}
+			*/
 	        annotations.push(annotation);
 	        if (isAndroid) {
 	        	mapview.addAnnotation(annotation);
@@ -111,30 +110,62 @@ mapview.addEventListener('click',function(evt)
 	var title = evt.title;
 	var clickSource = evt.clicksource;
 	
-	if (evt.clicksource == 'rightButton' || 
-		(isAndroid && 
+	if ((isAndroid && 
 			(evt.clicksource == 'annotation' ||
 			 evt.clicksource == 'title'))) {
-		var w = Ti.UI.createWindow({
+			 	var url = "http://wschurman.com/supports/test_sun.php";
+		
+		if (isAndroid) {
+			h = 150;
+			contentTopPosition = 40;
+		} else {
+			h = 110;
+			contentTopPosition = 30;
+		}
+		
+		var row = Ti.UI.createTableViewRow({
+            height: h,
+            //hasChild:true,
+            //hasDetail:(i < 2) // for future unread icons
+        });
+        
+        var view = Ti.UI.createView({
+        	top:5,
+        	left:5,
+        	right:5,
+        	bottom:5,
+        	touchEnabled:false
+        })
+        
+        row.add(view);
+        row.url = 'google.com';
+       // row.raw = article;
+        
+        var w = Ti.UI.createWindow({
 			title:annotation.raw.name,
-			url:"restaurant.js",
-			data:annotation.raw
+			url:"article.js",
+			data:row.raw
 		});
+		
 		Titanium.UI.currentTab.open(w,{animated:true});
 	}
-	else if(evt.clicksource =='leftButton'){
+	else if(evt.clicksource =='rightButton'){
 		var w = Ti.UI.createWindow({
 			title:annotation.raw.name + ' User Reviews',
 			url:"restaurant.js",
 			data:annotation.raw
 		});
+		
+		Titanium.UI.currentTab.open(w,{animated:true});
 	}
 	else if(evt.clicksource =='subtitle'){
 		var w = Ti.UI.createWindow({
 			title:annotation.raw.name,
-			url:"restaurant.js",
+			url:"restaurantURL.js",
 			data:annotation.raw
 		});
+		
+		Titanium.UI.currentTab.open(w,{animated:true});
 	}
 	
 });
