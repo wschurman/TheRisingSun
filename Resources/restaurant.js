@@ -55,26 +55,26 @@ var textWrap = Ti.UI.createView({
 	});
 	
 	var l1 = Ti.UI.createView({
-		backgroundImage: 'images/map-pin.png',
-		width: '15dp',
-		height: '30dp',
-		right: 0
+		width: '100dp',
+		height: '25dp',
+		right: 3,
+		top:3
 	});
 	
 	if(win.data.reviews[i].rating == 1){
-			l1.image = 'images/1_stars.png';
+			l1.backgroundImage = 'images/1_stars.png';
 		}
 		else if(win.data.reviews[i].rating == 2){
-			l1.image = 'images/2_stars.png';
+			l1.backgroundImage = 'images/2_stars.png';
 		}
 		else if(win.data.reviews[i].rating == 3){
-			l1.image = 'images/3_stars.png';
+			l1.backgroundImage = 'images/3_stars.png';
 		}
 		else if(win.data.reviews[i].rating == 4){
-			l1.image = 'images/4_stars.png';
+			l1.backgroundImage = 'images/4_stars.png';
 		}
 		else if(win.data.reviews[i].rating == 5){
-			l1.image = 'images/5_stars.png';
+			l1.backgroundImage = 'images/5_stars.png';
 		}
 		
 	textView.add(l1);

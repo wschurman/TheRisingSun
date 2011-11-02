@@ -221,7 +221,10 @@ function refreshTable(json) {
 		}
         view.add(titleLabel);
         view.add(contentLabel);
-        
+        row.add(view);
+		tableData.push(row);
+		row.url = article.permalink;
+		row.raw = article;
     }
 	table.setData(tableData);
 }

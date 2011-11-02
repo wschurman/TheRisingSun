@@ -1,6 +1,6 @@
 Logfile initialized
 [INFO] logfile = C:\Users\Eric\My Documents\Titanium Studio Workspace\TheRisingSun\build.log
-[DEBUG] C:\Users\Eric\AppData\Roaming\Titanium\mobilesdk\win32\1.7.2\android\builder.py simulator TheRisingSun C:\Program Files (x86)\Android\android-sdk C:\Users\Eric\My Documents\Titanium Studio Workspace\TheRisingSun com.thesun.therisingsun 7 HVGA
+[DEBUG] C:\Users\Eric\AppData\Roaming\Titanium\mobilesdk\win32\1.7.2\android\builder.py simulator TheRisingSun C:\Program Files (x86)\Android\android-sdk C:\Users\Eric\My Documents\Titanium Studio Workspace\TheRisingSun com.thesun.therisingsun 20 WXGA
 [INFO] Building TheRisingSun for Android ... one moment
 [INFO] Titanium SDK version: 1.7.2 (07/21/11 09:36 97c3689)
 [DEBUG] Waiting for device to be ready ...
@@ -9,16 +9,95 @@ Logfile initialized
 [TRACE] adb devices returned 1 devices/emulators
 [TRACE] adb devices returned 1 devices/emulators
 [DEBUG] Device connected... (waited 15 seconds)
-[DEBUG] waited 15.103000 seconds on emulator to get ready
+[DEBUG] waited 15.114000 seconds on emulator to get ready
 [INFO] Waiting for the Android Emulator to become available
-[DEBUG] com.thesun.therisingsun installed? True
+[ERROR] Timed out waiting for android.process.acore
+[DEBUG] com.thesun.therisingsun installed? False
 [INFO] Fastdev server running, deploying in Fastdev mode
 [INFO] Copying project resources..
-[TRACE] COPYING MODIFIED FILE: C:\Users\Eric\My Documents\Titanium Studio Workspace\TheRisingSun\Resources\food.js => C:\Users\Eric\My Documents\Titanium Studio Workspace\TheRisingSun\build\android\bin\assets\Resources\food.js
-[INFO] Tiapp.xml unchanged, skipping class generation
+[TRACE] Generating Java Classes
 [DEBUG] Processing Android resource drawables
+[DEBUG] copying app icon: C:\Users\Eric\My Documents\Titanium Studio Workspace\TheRisingSun\build\android\bin\assets\Resources\appicon.png
+[DEBUG] generating theme.xml
+[DEBUG] found splash screen at C:\Users\Eric\My Documents\Titanium Studio Workspace\TheRisingSun\build\android\bin\assets\Resources\default.png
+[TRACE] Writing out AndroidManifest.xml
+[DEBUG] adding C:\Users\Eric\My Documents\Titanium Studio Workspace\TheRisingSun\build\android\gen\com\thesun\therisingsun\R.java to javac build list
+[DEBUG] adding C:\Users\Eric\My Documents\Titanium Studio Workspace\TheRisingSun\build\android\gen\com\thesun\therisingsun\TherisingsunActivity.java to javac build list
+[DEBUG] adding C:\Users\Eric\My Documents\Titanium Studio Workspace\TheRisingSun\build\android\gen\com\thesun\therisingsun\TherisingsunAppInfo.java to javac build list
+[DEBUG] adding C:\Users\Eric\My Documents\Titanium Studio Workspace\TheRisingSun\build\android\gen\com\thesun\therisingsun\TherisingsunApplication.java to javac build list
+[DEBUG] Building Java Sources: "C:\\Users\\Eric\\My Documents\\Titanium Studio Workspace\\TheRisingSun\\build\\android\\gen\\com\\thesun\\therisingsun\\R.java" "C:\\Users\\Eric\\My Documents\\Titanium Studio Workspace\\TheRisingSun\\build\\android\\gen\\com\\thesun\\therisingsun\\TherisingsunActivity.java" "C:\\Users\\Eric\\My Documents\\Titanium Studio Workspace\\TheRisingSun\\build\\android\\gen\\com\\thesun\\therisingsun\\TherisingsunAppInfo.java" "C:\\Users\\Eric\\My Documents\\Titanium Studio Workspace\\TheRisingSun\\build\\android\\gen\\com\\thesun\\therisingsun\\TherisingsunApplication.java"
 [INFO] Waiting for SDCard to become available..
-[INFO] Re-launching application ... TheRisingSun
-[INFO] Launching application ... TheRisingSun
-[TRACE] Launch output: Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.thesun.therisingsun/.TherisingsunActivity }
-
+[ERROR] Timed out waiting for SDCard to become available (60s)
+[INFO] Compiling Android Resources... This could take some time
+[DEBUG] Android classes.dex built
+[DEBUG] creating unsigned apk: C:\Users\Eric\My Documents\Titanium Studio Workspace\TheRisingSun\build\android\bin\app-unsigned.apk
+[DEBUG] from resource zip => assets/Resources/images/tabs/KS_nav_mashup.png
+[DEBUG] from resource zip => assets/Resources/images/1_stars.png
+[DEBUG] from resource zip => assets/Resources/images/2_stars.png
+[DEBUG] from resource zip => assets/Resources/images/3_stars.png
+[DEBUG] from resource zip => assets/Resources/images/4_stars.png
+[DEBUG] from resource zip => assets/Resources/images/4_starsc.png
+[DEBUG] from resource zip => assets/Resources/images/5_stars.png
+[DEBUG] from resource zip => assets/Resources/images/map-pin.png
+[DEBUG] from resource zip => assets/Resources/images/map-pin2.png
+[DEBUG] from resource zip => assets/Resources/images/navigation-down-button.png
+[DEBUG] from resource zip => assets/Resources/images/shadow_b.png
+[DEBUG] from resource zip => assets/Resources/images/star.png
+[DEBUG] from resource zip => assets/Resources/images/tasks_off.png
+[DEBUG] from resource zip => assets/Resources/images/tasks_on.png
+[DEBUG] from resource zip => assets/Resources/KS_nav_ui.png
+[DEBUG] from resource zip => assets/Resources/KS_nav_views.png
+[DEBUG] from resource zip => assets/Resources/app.js
+[DEBUG] from resource zip => assets/Resources/appicon.png
+[DEBUG] from resource zip => assets/Resources/article.js
+[DEBUG] from resource zip => assets/Resources/comments.js
+[DEBUG] from resource zip => assets/Resources/default.png
+[DEBUG] from resource zip => assets/Resources/food.js
+[DEBUG] from resource zip => assets/Resources/restaurant.js
+[DEBUG] from resource zip => assets/Resources/restaurantArticle.js
+[DEBUG] from resource zip => assets/Resources/route.js
+[DEBUG] from resource zip => assets/Resources/sun.js
+[DEBUG] from resource zip => assets/Resources/tcat.js
+[DEBUG] from resource zip => assets/tiapp.xml
+[DEBUG] from resource zip => res/drawable/appicon.png
+[DEBUG] from resource zip => res/drawable/background.png
+[DEBUG] from resource zip => res/drawable/facebook_icon.png
+[DEBUG] from resource zip => res/drawable/facebook_login.png
+[DEBUG] from resource zip => res/drawable/facebook_login_down.png
+[DEBUG] from resource zip => res/drawable/facebook_login_wide.png
+[DEBUG] from resource zip => res/drawable/facebook_login_wide_down.png
+[DEBUG] from resource zip => res/drawable/facebook_logout.png
+[DEBUG] from resource zip => res/drawable/facebook_logout_down.png
+[DEBUG] from resource zip => res/layout/titanium_tabgroup.xml
+[DEBUG] from resource zip => AndroidManifest.xml
+[DEBUG] from resource zip => resources.arsc
+[DEBUG] from resource zip => res/drawable-hdpi/facebook_icon.png
+[DEBUG] from resource zip => res/drawable-ldpi/facebook_icon.png
+[DEBUG] from JAR C:\Users\Eric\AppData\Roaming\Titanium\mobilesdk\win32\1.7.2\android\smalljs.jar => org/mozilla/javascript/resources/Messages.properties
+[DEBUG] from JAR C:\Users\Eric\AppData\Roaming\Titanium\mobilesdk\win32\1.7.2\android\smalljs.jar => org/mozilla/javascript/resources/Messages_fr.properties
+[DEBUG] from JAR C:\Users\Eric\AppData\Roaming\Titanium\mobilesdk\win32\1.7.2\android\titanium.jar => org/apache/Commons-NOTICE.txt
+[DEBUG] from JAR C:\Users\Eric\AppData\Roaming\Titanium\mobilesdk\win32\1.7.2\android\titanium.jar => org/apache/HttpComponents-NOTICE.txt
+[DEBUG] from JAR C:\Users\Eric\AppData\Roaming\Titanium\mobilesdk\win32\1.7.2\android\titanium.jar => org/apache/mime4j-NOTICE.txt
+[DEBUG] from JAR C:\Users\Eric\AppData\Roaming\Titanium\mobilesdk\win32\1.7.2\android\titanium.jar => org/appcelerator/titanium/build.properties
+[DEBUG] from JAR C:\Users\Eric\AppData\Roaming\Titanium\mobilesdk\win32\1.7.2\android\titanium.jar => org/appcelerator/titanium/res/drawable/background.png
+[DEBUG] from JAR C:\Users\Eric\AppData\Roaming\Titanium\mobilesdk\win32\1.7.2\android\titanium.jar => org/appcelerator/titanium/res/drawable/btn_check_buttonless_on.png
+[DEBUG] from JAR C:\Users\Eric\AppData\Roaming\Titanium\mobilesdk\win32\1.7.2\android\titanium.jar => org/appcelerator/titanium/res/drawable/btn_check_buttonless_on_18.png
+[DEBUG] from JAR C:\Users\Eric\AppData\Roaming\Titanium\mobilesdk\win32\1.7.2\android\titanium.jar => org/appcelerator/titanium/res/drawable/btn_check_buttonless_on_48.png
+[DEBUG] from JAR C:\Users\Eric\AppData\Roaming\Titanium\mobilesdk\win32\1.7.2\android\titanium.jar => org/appcelerator/titanium/res/drawable/btn_more.png
+[DEBUG] from JAR C:\Users\Eric\AppData\Roaming\Titanium\mobilesdk\win32\1.7.2\android\titanium.jar => org/appcelerator/titanium/res/drawable/btn_more_18.png
+[DEBUG] from JAR C:\Users\Eric\AppData\Roaming\Titanium\mobilesdk\win32\1.7.2\android\titanium.jar => org/appcelerator/titanium/res/drawable/btn_more_48.png
+[DEBUG] from JAR C:\Users\Eric\AppData\Roaming\Titanium\mobilesdk\win32\1.7.2\android\titanium.jar => org/appcelerator/titanium/res/drawable/btn_picker_normal.9.png
+[DEBUG] from JAR C:\Users\Eric\AppData\Roaming\Titanium\mobilesdk\win32\1.7.2\android\titanium.jar => org/appcelerator/titanium/res/drawable/btn_picker_pressed.9.png
+[DEBUG] from JAR C:\Users\Eric\AppData\Roaming\Titanium\mobilesdk\win32\1.7.2\android\titanium.jar => org/appcelerator/titanium/res/drawable/btn_picker_selected.9.png
+[DEBUG] from JAR C:\Users\Eric\AppData\Roaming\Titanium\mobilesdk\win32\1.7.2\android\titanium.jar => org/appcelerator/titanium/res/drawable/default_icon.png
+[DEBUG] from JAR C:\Users\Eric\AppData\Roaming\Titanium\mobilesdk\win32\1.7.2\android\titanium.jar => org/appcelerator/titanium/res/drawable/photoDefault.png
+[DEBUG] from JAR C:\Users\Eric\AppData\Roaming\Titanium\mobilesdk\win32\1.7.2\android\modules\titanium-ui.jar => ti/modules/titanium/ui/widget/webview/binding.js
+[DEBUG] from JAR C:\Users\Eric\AppData\Roaming\Titanium\mobilesdk\win32\1.7.2\android\modules\titanium-ui.jar => ti/modules/titanium/ui/widget/webview/binding.min.js
+[DEBUG] from JAR C:\Users\Eric\AppData\Roaming\Titanium\mobilesdk\win32\1.7.2\android\modules\titanium-ui.jar => ti/modules/titanium/ui/widget/webview/json2.js
+[DEBUG] from JAR C:\Users\Eric\AppData\Roaming\Titanium\mobilesdk\win32\1.7.2\android\modules\titanium-yahoo.jar => ti/modules/titanium/yahoo/yahoo.js
+[DEBUG] from JAR C:\Users\Eric\AppData\Roaming\Titanium\mobilesdk\win32\1.7.2\android\modules\titanium-facebook.jar => ti/modules/titanium/facebook/LICENSE
+[DEBUG] Waiting for device to be ready ...
+[TRACE] adb devices returned 1 devices/emulators
+[DEBUG] Device connected... (waited 0 seconds)
+[DEBUG] waited 0.026000 seconds on emulator to get ready
+[INFO] Installing application on device
