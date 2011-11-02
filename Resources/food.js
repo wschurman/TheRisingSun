@@ -24,7 +24,10 @@ var mapview = Titanium.Map.createView({
  
 win.add(mapview);*/
 
-
+var toast = Titanium.UI.createNotification({
+    duration: 2000,
+    message: "Hi, I'm a toast!"
+});
 
 var win = Titanium.UI.currentWindow;
 
@@ -113,8 +116,33 @@ mapview.addEventListener('click',function(evt)
 	if ((isAndroid && 
 			(evt.clicksource == 'annotation' ||
 			 evt.clicksource == 'title'))) {
-			 	var url = "http://wschurman.com/supports/test_sun.php";
+	 	var url2 = "http://wschurman.com/supports/test_sun.php";
+	var categories, jsonArt, catRendered = false;
+
+	var currCat = "";
 		
+	var article;
+	
+	var xhr2 = Ti.Network.createHTTPClient({
+	    onload: function() {
+		    jsonArt = JSON.parse(this.responseText);
+		    article = jsonArt.articles[0];
+		    toast.message = jsonArt.articles.length;
+		    toast.show();
+		    
+		},
+	    onerror: function(e) {
+	    	Ti.API.debug("STATUS: " + this.status);
+	    	Ti.API.debug("TEXT:   " + this.responseText);
+	    	Ti.API.debug("ERROR:  " + e.error);
+	    	alert('There was an error retrieving the remote data. Try again.');
+	    },
+	    timeout:5000
+	});
+	 
+	xhr2.open("GET", url2+"?cat="+""+"&last="+"");
+	xhr2.send();
+	
 		if (isAndroid) {
 			h = 150;
 			contentTopPosition = 40;
@@ -142,9 +170,9 @@ mapview.addEventListener('click',function(evt)
        // row.raw = article;
         
         var w = Ti.UI.createWindow({
-			title:annotation.raw.name,
+			title:"DAILY SUN",
 			url:"article.js",
-			data:row.raw
+			data:article
 		});
 		
 		Titanium.UI.currentTab.open(w,{animated:true});
