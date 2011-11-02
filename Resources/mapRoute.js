@@ -6,25 +6,11 @@ var win = Titanium.UI.currentWindow;
 
 var userStartingPoint = win.from;
 var userDestination = win.to;
+var data = win.data;
 
 var isAndroid = false;
 if (Titanium.Platform.name == 'android') {
 	isAndroid = true;
-}
-
-// Make Ajax call to grab data; for now, we just have dummy JSON
-// var data = $.ajax(startingPoint : userStartingPoint, destination : userDestination)...
-var data = {
-	startingPoint :
-		{ latitude : 37.390749, longitude : -122.081651, name : 'Mountain View Headquarters'},
-	destination :
-		{ latitude : 37.511389, longitude : -122.208311, name : 'Random Destination'},
-	stops :
-		[
-			{ latitude : 37.42, longitude : -122.12, name : 'Stop 1', distanceTo : '.14 miles', transferTo : 'Route 14', departureTime : '2:40 PM'},
-			{ latitude : 37.46, longitude : -122.16, name : 'Stop 2', distanceTo : '.80 miles', transferTo : 'Route 30', departureTime : '3:30 PM'},
-			{ latitude : 37.50, longitude : -122.20, name : 'Stop 3', distanceTo : '.03 miles', transferTo : null, departureTime : null}
-		]
 }
 
 var mapStartingPoint = Titanium.Map.createAnnotation({
@@ -84,11 +70,13 @@ var getTextDirections = Titanium.UI.createButton({
 // Add functionality to link
 getTextDirections.addEventListener('click', function() {	
 	var w = Ti.UI.createWindow({
-		title:"TCAT Route - Directions",
-		url:"../textRoute.js",
+		title:"TCAT Route - Map",
+		url:"textRoute.js",
+		from:userStartingPoint,
+		to:userDestination,
 		data:data
 	});
-	Titanium.UI.currentTab.open(w,{animated:true});	
+	Titanium.UI.currentTab.open(w,{animated:true});
 });
 
 mapview.selectAnnotation(mapStartingPoint);

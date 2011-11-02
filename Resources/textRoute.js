@@ -1,29 +1,64 @@
 var win = Titanium.UI.currentWindow;
 
+var userStartingPoint = win.from;
+var userDestination = win.to;
 var data = win.data;
 
-var directions = [];
+var scrollView = Titanium.UI.createScrollView({
+	backgroundColor: '#FFF',
+	contentWidth:"100%",
+	contentHeight:"auto",
+	top:0,
+	width: "100%",
+	height: "100%",
+	showVerticalScrollIndicator:true,
+	showHorizontalScrollIndicator:false,
+});
 
-function getTransferDirections(distance, name, transferTo, departureTime) {
-	return distance + ' to ' + name + ' and transfer to ' + transferTo + '. It departs at ' + departureTime + '.';
-}
+var textWrap = Ti.UI.createView({ 
+	backgroundColor: '#FFF', 
+	height: 'auto', 
+	width: 'auto',
+	left:5,
+	top:10,
+	layout:'vertical'
+});
 
-// Add the starting point
-var startingPointDirections = 'Walk ' + getTransferDirections(data.stops[0].distanceTo, data.stops[0].name, data.stops[0].transferTo, data.stops[0].departureTime);
-directions.push(startingPointDirections);
-
-// Add all the stops
-for (var i = 1; i < data.stops.length; i++) {
-	directions.push('Travel ' + getTransferDirections(data.stops[i].distanceTo, data.stops[i].name, data.stops[i].transferTo, data.stops[i].departureTime));	
-}
-
-// Add the final walking directions
-directions.push('Walk from the final stop to ' + data.destination.name);
-
-// Create a label and add it to the window
-for (var k = 0; k < directions.length; k++) {
+// Create the textual directions
+for (var k = 0; k < data.directions.length; k++) {
 	var label = Titanium.UI.createLabel({
-		text:directions[k] + "\n"
+		color:'#111',
+		font: {
+			fontFamily:'Georgia',
+			fontSize:20
+		},		
+		text:data.directions[k] + "\n"
 	});
-	win.add(label);
+	textWrap.add(label);
 }
+
+// Create the link to the Map
+var viewMap = Titanium.UI.createButton({
+	width:450,
+	height:55,
+	bottom:10,
+	enabled:true,
+	visible:true,
+	title:'View Map',
+});
+
+// Add functionality
+viewMap.addEventListener('click', function() {	
+	var w = Ti.UI.createWindow({
+		title:"TCAT Route - Map",
+		url:"mapRoute.js",
+		from:userStartingPoint,
+		to:userDestination,
+		data:data
+	});
+	Titanium.UI.currentTab.open(w,{animated:true});
+});
+
+scrollView.add(textWrap);
+win.add(scrollView);
+win.add(viewMap);
