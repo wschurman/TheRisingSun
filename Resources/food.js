@@ -1,28 +1,70 @@
-/*var win = Titanium.UI.currentWindow;
 
-var mountainView = Titanium.Map.createAnnotation({
-    latitude:33.390749,
-    longitude:-84.081651,
-    title:"Appcelerator Headquarters",
-    subtitle:'Mountain View, CA',
-   // pincolor:Titanium.Map.ANNOTATION_RED,
-    image:'images/map-pin.png',
-    animate:true,
-    leftButton: 'images/navigation-down-button.png',
-    myid:1 // CUSTOM ATTRIBUTE THAT IS PASSED INTO EVENT OBJECTS
+
+var secondary_layout_is_displayed = false;
+
+
+Ti.UI.currentWindow.addEventListener('android:back', function() { 
+
+	toast.show();
+	
+	var w = Ti.UI.createWindow({
+			title:"test",
+			url:"app.js",
+			backgroundColor: '#fff',
+			data:"none"
+		});
+		Titanium.UI.currentTab.open(w,{animated:true});
+		
 });
- 
-var mapview = Titanium.Map.createView({
-    mapType: Titanium.Map.STANDARD_TYPE,
-    region: {latitude:33.74511, longitude:-84.38993, 
-            latitudeDelta:0.01, longitudeDelta:0.01},
-    animate:true,
-    regionFit:true,
-    userLocation:true,
-    annotations:[mountainView]
+
+var win = Ti.UI.currentWindow;
+var b = Titanium.UI.createButton({title:'title'});
+b.addEventListener('click', function()
+{
+    alert('heelo');
 });
- 
-win.add(mapview);*/
+win.leftNavButton = b;
+
+
+
+cachedImageView = function(imageDirectoryName, url, imageViewObject)
+	{
+	// Grab the filename
+	var filename = url.split('/');
+	filename = filename[filename.length - 1];
+	// Try and get the file that has been previously cached
+	var file = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, imageDirectoryName, filename);
+	
+	if (file.exists()) {
+	// If it has been cached, assign the local asset path to the image view object.
+	imageViewObject.image = file.nativePath;
+	} else {
+	// If it hasn't been cached, grab the directory it will be stored in.
+	var g = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, imageDirectoryName);
+	if (!g.exists()) {
+	// If the directory doesn't exist, make it
+	g.createDirectory();
+	};
+	
+	// Create the HTTP client to download the asset.
+	var xhr = Ti.Network.createHTTPClient();
+	
+	xhr.onload = function() {
+	if (xhr.status == 200) {
+	// On successful load, take that image file we tried to grab before and
+	// save the remote image data to it.
+	file.write(xhr.responseData);
+	// Assign the local asset path to the image view object.
+	imageViewObject.image = file.nativePath;
+	};
+	};
+	
+	// Issuing a GET request to the remote URL
+	xhr.open('GET', url);
+	// Finally, sending the request out.
+	xhr.send();
+	};
+};
 
 var toast = Titanium.UI.createNotification({
     duration: 2000,
@@ -64,25 +106,36 @@ var xhr = Ti.Network.createHTTPClient({
 				longitude:restaurant.longitude,
 				title:restaurant.name,
 				subtitle:restaurant.url,
-				pincolor:Titanium.Map.ANNOTATION_RED,
+				//pincolor:Titanium.Map.ANNOTATION_RED,
+				//image:'images/map-pin.png',
 				raw: restaurant,
 				animate:true
 	        });
 	        
+	        if (!isAndroid) {
+				annotation.pincolor = Titanium.Map.ANNOTATION_PURPLE;
+			} else {
+				//annotation.pinImage = "/images/map-pin.png";
+				cachedImageView("/images/map-pin2.png", 'http://static.sna.pr/live/gfx/snapmappin-public.png', annotation);
+			}
+
+		 
+		   //annotation.pincolor = Titanium.Map.ANNOTATION_RED;
+	        
 	        if(restaurant.avg_rating == 1){
-				annotation.rightButton = 'images/1_stars.png';
+				annotation.rightButton = 'images/1_starsc.png';
 			}
 			else if(restaurant.avg_rating == 2){
-				annotation.rightButton = 'images/2_stars.png';
+				annotation.rightButton = 'images/2_starsc.png';
 			}
 			else if(restaurant.avg_rating == 3){
-				annotation.rightButton = 'images/3_stars.png';
+				annotation.rightButton = 'images/3_starsc.png';
 			}
 			else if(restaurant.avg_rating == 4){
-				annotation.rightButton = 'images/4_stars.png';
+				annotation.rightButton = 'images/4_starsc.png';
 			}
 			else if(restaurant.avg_rating == 5){
-				annotation.rightButton = 'images/5_stars.png';
+				annotation.rightButton = 'images/5_starsc.png';
 			}
 			
 	        annotations.push(annotation);
@@ -135,6 +188,7 @@ mapview.addEventListener('click',function(evt)
 		Titanium.UI.currentTab.open(w,{animated:true});
 	}
 	else if(evt.clicksource =='subtitle'){
+		secondary_layout_is_displayed = true;
 		
 		var wview = Titanium.UI.createWebView({
 			url:annotation.raw.url,
