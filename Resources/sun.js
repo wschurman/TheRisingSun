@@ -1,4 +1,3 @@
-
 /* Configurable Params */
 var baseTitle = "The Cornell Daily Sun";
 var baseTitleShort = "Sun";
@@ -8,10 +7,7 @@ var win = Titanium.UI.currentWindow;
 win.title = baseTitle;
 
 win.orientationModes = [
-    Titanium.UI.PORTRAIT,
-    Titanium.UI.UPSIDE_PORTRAIT,
-    Titanium.UI.LANDSCAPE_LEFT,
-    Titanium.UI.LANDSCAPE_RIGHT
+    Titanium.UI.PORTRAIT
 ];
 
 var isAndroid = (Titanium.Platform.name == 'android');
@@ -21,19 +17,33 @@ var json, articles, article, i, j, row, view, titleLabel,
 var categories, catRendered = false;
 var currCat = "";
 
+/* Android menu */
+
+if (isAndroid) {
+	var activity = Ti.Android.currentActivity;
+	activity.onCreateOptionsMenu = function(e) {
+	    var menu = e.menu;
+	    var menuItem = menu.add({ title: "Refresh" });
+	    menuItem.setIcon("images/tabs/KS_nav_mashup.png");
+	    menuItem.addEventListener("click", function(e) {
+	        refreshContent(currCat, "");
+	    });
+	};
+}
+
 /* Initial Layout Elements and Calculations*/
 
 var table = Ti.UI.createTableView({
 	top: 55
 });
 var scrollView = Titanium.UI.createScrollView({
-	contentWidth:600,
+	contentWidth:805,
 	contentHeight:55,
 	top:0,
 	showVerticalScrollIndicator:false,
 	showHorizontalScrollIndicator:false,
 	height:55,
-	width:"100%",
+	width:"auto",
 	backgroundColor:'#9A1011',
 	backgroundGradient:{
 		type:'linear',
@@ -44,7 +54,7 @@ var scrollView = Titanium.UI.createScrollView({
 var shadow = Ti.UI.createView({
 	backgroundImage:"images/shadow_b.png",
 	height:5,
-	width: "100%",
+	width: "auto",
 	top: 55
 })
 
@@ -123,7 +133,7 @@ function renderCategories(categories) {
 		
 		t_label = Ti.UI.createLabel({
 			text:categories[j].name,
-			font:{fontSize:13},
+			font:{fontSize:17},
 			color:'#fff',
 			width:'auto',
 			textAlign:'center',

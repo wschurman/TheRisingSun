@@ -32,7 +32,7 @@ var title_text = Ti.UI.createLabel({
 	left: 5,
 	font:{
 		fontFamily:"Georgia",
-		fontSize:20
+		fontSize: (isAndroid) ? 25 : 20
 	},
 	height:"auto",
 	color: "#111"
@@ -41,11 +41,6 @@ var title_text = Ti.UI.createLabel({
 
 function openInBrowser() {
 	var w = Ti.UI.createWindow();
-	w.orientationModes = [
-		Titanium.UI.PORTRAIT,
-		Titanium.UI.LANDSCAPE_LEFT,
-		Titanium.UI.LANDSCAPE_RIGHT
-	];
 
 	var webview = null;
 	webview = Ti.UI.createWebView({
@@ -64,11 +59,11 @@ title_text.addEventListener('click', function() {
 var date_text = Ti.UI.createLabel({
 	id: 'article_date',
 	text: date.toLocaleDateString() + " " + date.toLocaleTimeString(),
-	font: {fontSize: 13},
+	font: {fontSize: (isAndroid) ? 18 : 13},
 	color: "#9B9B9B",
 	right: 5,
 	width:"auto",
-	height: 15
+	height: 25
 });
 
 var img_view = Ti.UI.createView({
@@ -97,16 +92,16 @@ if (hasImage) {
 		left: "170px",
 		text: "by " + win.data.author,
 		color:"#383838",
-		width:100,
+		width:200,
 		height: "auto",
-		font: {fontSize: 13},
+		font: {fontSize: 18},
 	});
 	comments_button = Titanium.UI.createButton({
 		id:"comments_button",
 		title: win.data.comment_count + " comments",
 		width:140,
-		height: (isAndroid) ? 35 : 25,
-		top: 30,
+		height: (isAndroid) ? 45 : 25,
+		top: 50,
 		left: "170px",
 		font: {
 			fontSize: 14,
@@ -124,7 +119,7 @@ if (hasImage) {
 		left: 0,
 		text: "by " + win.data.author,
 		color:"#383838",
-		width:100,
+		width:200,
 		height: "auto",
 		font: {fontSize: 13},
 	});
@@ -133,7 +128,7 @@ if (hasImage) {
 		id:"comments_button_noimg",
 		title: win.data.comment_count + " comments",
 		width:140,
-		height: (isAndroid) ? 35 : 25,
+		height: (isAndroid) ? 45 : 25,
 		top: 10,
 		right: 0,
 		font: {
@@ -161,7 +156,7 @@ comments_button.addEventListener('click', function()
 var body_text = Titanium.UI.createLabel({
 	id:'article_content',
 	text: win.data.content,
-	font: {fontSize: (isAndroid) ? 17 : 15},
+	font: {fontSize: (isAndroid) ? 21 : 17},
 	top: 5,
 	height:'auto',
 	width:Titanium.Platform.displayCaps.platformWidth - 20,
@@ -172,7 +167,7 @@ var read_more = Ti.UI.createButton({
 	id:"read_more",
 	title: "Read More",
 	width: "100%",
-	height: 50,
+	height: 60,
 	top: 5
 });
 
