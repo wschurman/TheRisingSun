@@ -24,15 +24,15 @@ var currCat = "";
 /* Initial Layout Elements and Calculations*/
 
 var table = Ti.UI.createTableView({
-	top: 30
+	top: 55
 });
 var scrollView = Titanium.UI.createScrollView({
 	contentWidth:600,
-	contentHeight:30,
+	contentHeight:55,
 	top:0,
 	showVerticalScrollIndicator:false,
 	showHorizontalScrollIndicator:false,
-	height:30,
+	height:55,
 	width:"100%",
 	backgroundColor:'#9A1011',
 	backgroundGradient:{
@@ -45,7 +45,7 @@ var shadow = Ti.UI.createView({
 	backgroundImage:"images/shadow_b.png",
 	height:5,
 	width: "100%",
-	top: 30
+	top: 55
 })
 
 if (isAndroid) {
@@ -113,8 +113,8 @@ function renderCategories(categories) {
 			borderWidth:0,
 			borderColor:'#336699',
 			backgroundSelectedColor:'#3D090A',
-			width:90,
-			height:20,
+			width:110,
+			height:45,
 			top: 5,
 			left:currLeftOffset,
 			raw:categories[j]
@@ -127,12 +127,12 @@ function renderCategories(categories) {
 			color:'#fff',
 			width:'auto',
 			textAlign:'center',
-			height:20,
+			height:45,
 			touchEnabled:false
 		});
 		t_view.add(t_label);
 		
-		currLeftOffset += 95;
+		currLeftOffset += 115;
 		
 		t_view.addEventListener('click',function(e) {
 			refreshContent(e.source.raw.id, "");
