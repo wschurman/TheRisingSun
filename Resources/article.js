@@ -24,6 +24,21 @@ var textWrap = Ti.UI.createView({
 	layout:'vertical'
 });
 
+if (!isAndroid) {
+	Titanium.Admob = Ti.Admob = require('ti.admob');
+	var ad;
+	textWrap.add(ad = Ti.Admob.createView({
+	    top: 0, left: 0,
+	    width: "auto", height: 50,
+	    publisherId: '<<YOUR PUBLISHER ID HERE>>',
+	    adBackgroundColor: 'black',
+	    testing: true,
+	    dateOfBirth: new Date(1985, 10, 1, 12, 1, 1),
+	    gender: 'male',
+	    keywords: ''
+	}));
+}
+
 var title_text = Ti.UI.createLabel({
 	id:"title_text",
 	text: win.data.title,
