@@ -33,5 +33,7 @@
         </orientations>
     </iphone>
     <android xmlns:android="http://schemas.android.com/apk/res/android"/>
-    <modules/>
+    <modules>
+    	<module version="1.0" platform="iphone">ti.admob</module>
+  	</modules>
 </ti:app>

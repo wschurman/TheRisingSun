@@ -24,21 +24,6 @@ var textWrap = Ti.UI.createView({
 	layout:'vertical'
 });
 
-if (!isAndroid) {
-	Titanium.Admob = Ti.Admob = require('ti.admob');
-	var ad;
-	textWrap.add(ad = Ti.Admob.createView({
-	    top: 0, left: 0,
-	    width: "auto", height: 50,
-	    publisherId: '<<YOUR PUBLISHER ID HERE>>',
-	    adBackgroundColor: 'black',
-	    testing: true,
-	    dateOfBirth: new Date(1985, 10, 1, 12, 1, 1),
-	    gender: 'male',
-	    keywords: ''
-	}));
-}
-
 var title_text = Ti.UI.createLabel({
 	id:"title_text",
 	text: win.data.title,
@@ -191,7 +176,7 @@ read_more.addEventListener('click', function() {
 });
 
 var bottom_spacing = Ti.UI.createView({
-	height: 20,
+	height: (isAndroid) ? 20 : 50,
 	width: "100%",
 	top: 5
 })
@@ -206,3 +191,27 @@ textWrap.add(bottom_spacing);
 scrollView.add(textWrap);
 
 win.add(scrollView);
+
+if (!isAndroid) {
+	Titanium.Admob = Ti.Admob = require('ti.admob');
+	var ad;
+	
+	var shadow = Ti.UI.createView({
+		backgroundImage:"images/shadow_u.png",
+		height:5,
+		width: "100%",
+		bottom: 49
+	});
+	
+	win.add(shadow);
+	
+	win.add(ad = Ti.Admob.createView({
+	    bottom: 0, left: 0,
+	    width: "100%", height: 50,
+	    publisherId: 'a14ed1a5ee858ea',
+	    adBackgroundColor: 'black',
+	    testing: true,
+	    gender: '',
+	    keywords: 'cornell, sun, ithaca, college, university'
+	}));
+}
