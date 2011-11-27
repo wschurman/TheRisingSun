@@ -4,5 +4,4 @@ tmp
 *.pyo
 build/*
 *.lock
-build.log
-build.log
+*.log
