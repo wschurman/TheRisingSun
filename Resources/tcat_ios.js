@@ -56,6 +56,7 @@ var submitRow = Titanium.UI.createTableViewRow({height:65, className:'submitRow'
 var startLabel = Ti.UI.createLabel({color:'#000000', text:"Start", font:{fontSize:21, fontWeight:'bold'}, top:8, left:12, height:24, width:99});
 var destLabel = Ti.UI.createLabel({color:'#000000', text:"Destination", font:{fontSize:21, fontWeight:'bold'}, top:8, left:12, height:24, width:170});
 var timeLabel = Ti.UI.createLabel({color:'#000000', text:"Time", font:{fontSize:21, fontWeight:'bold'}, top:8, left:12, height:24, width:170});
+
 var startData = Ti.UI.createLabel({color:'#3D4460', text:"", font:{fontSize:17, fontWeight:'normal'}, top:11, left:102, height:20, width:150, textAlign:'right'});
 var destData = Ti.UI.createLabel({color:'#3D4460', text:"", font:{fontSize:17, fontWeight:'normal'}, top:11, left:102, height:20, width:180, textAlign:'right'});	
 var timeData = Ti.UI.createLabel({color:'#3D4460', text:"", font:{fontSize:17, fontWeight:'normal'}, top:11, left:102, height:20, width:180, textAlign:'right'});	
@@ -84,15 +85,14 @@ submitButton = Titanium.UI.createButton({
 startRow.add(startLabel);
 startRow.add(startData);
 startRow.add(startCurrentLocation);
+
 destRow.add(destLabel);
 destRow.add(destData);
 timeRow.add(timeLabel);
 timeRow.add(timeData);
-//submitRow.add(submitButton);
 array.push(startRow);
 array.push(destRow);
 array.push(timeRow);
-//array.push(submitRow);
 
 // Getters
 var getFromField = function() { return startData; };
@@ -223,11 +223,6 @@ destPicker.addEventListener('change',function(e)
 	tableView.setData(array);
 });
 
-/*start.addEventListener('focus',function() {
-	destPickerView.animate(slideOut);
-	timePickerView.animate(slideOut);
-});*/
-
 
 destDone.addEventListener('click', function(event) {
   	destData.text = destPicker.getSelectedRow(0).title;
@@ -346,6 +341,7 @@ function auto_complete(search_term)
 		    	Ti.API.debug("STATUS: " + this.status);
 		    	Ti.API.debug("TEXT:   " + this.responseText);
 		    	Ti.API.debug("ERROR:  " + e.error);
+		    	alert('There was an error retrieving the remote data. Try again.');
 		    },
 		    timeout:1500
 		});
