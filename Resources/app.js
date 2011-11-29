@@ -15,8 +15,8 @@ var win1 = Titanium.UI.createWindow({
 
 var tab1 = Titanium.UI.createTab({
 	id:'tab1',
-	icon:'images/tabs/KS_nav_mashup.png',
-	title:'Sun',
+	icon:'images/tabs/news.png',
+	title:'The Sun',
 	window:win1
 });
 
@@ -29,7 +29,7 @@ var win2 = Titanium.UI.createWindow({
 
 var tab2 = Titanium.UI.createTab({
 	id:'tab2',
-	icon:'images/tabs/KS_nav_mashup.png',
+	icon:'images/tabs/bus.png',
 	title:'TCAT',
 	window:win2
 });
@@ -44,8 +44,8 @@ var win3 = Titanium.UI.createWindow({
 
 var tab3 = Titanium.UI.createTab({
 	id:'tab3',
-	icon:'images/tabs/KS_nav_mashup.png',
-	title:'Food',
+	icon:'images/tabs/dining.png',
+	title:'Dining Guide',
 	window:win3
 });
 

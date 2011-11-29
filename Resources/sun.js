@@ -1,7 +1,6 @@
 /* Configurable Params */
 var baseTitle = "The Cornell Daily Sun";
 var baseTitleShort = "Sun";
-var url = "http://wschurman.com/supports/test_sun.php";
 
 var win = Titanium.UI.currentWindow;
 win.title = baseTitle;
@@ -14,8 +13,16 @@ var isAndroid = (Titanium.Platform.name == 'android');
 var tableData = [];
 var json, articles, article, i, j, row, view, titleLabel,
 	contentLabel, h, contentTopPosition, c, hasImage, t_view, t_label, currLeftOffset;
-var categories, catRendered = false;
-var currCat = "";
+var categories = [
+	{name: "News", type: "content_news_story"},
+	{name: "Sports", type: "content_sports_story"},
+	{name: "Opinion", type: "content_opinion_piece"},
+	{name: "Arts", type: "content_daze_story"},
+	{name: "Science", type: "content_science_story"}
+];
+var catRendered = false;
+var currCat = 0;
+var currCatLabel = null;
 
 /* Android menu */
 
@@ -26,7 +33,7 @@ if (isAndroid) {
 	    var menuItem = menu.add({ title: "Refresh" });
 	    menuItem.setIcon("images/tabs/KS_nav_mashup.png");
 	    menuItem.addEventListener("click", function(e) {
-	        refreshContent(currCat, "");
+	        refreshContent(currCat);
 	    });
 	};
 }
@@ -72,22 +79,22 @@ var r = Titanium.UI.createButton({
 r.addEventListener('click',function()
 {
 	// reload feed
-	refreshContent(currCat, "");
+	refreshContent(currCat);
 });
 
 if (!isAndroid) Titanium.UI.currentWindow.setRightNavButton(r);
 
 /* AJAX Request */
 
-function refreshContent(cat, last) {
+function refreshContent(cat) {
 	currCat = cat;
+	var postdata = {
+		method: 'node.get',
+		nid: 49070 
+	};
 	var xhr = Ti.Network.createHTTPClient({
 	    onload: function() {
 		    json = JSON.parse(this.responseText);
-		    if(!catRendered) {
-		    	renderCategories(json.categories);
-		    	catRendered = true;
-		    }
 		    refreshTable(json);
 		},
 	    onerror: function(e) {
@@ -96,14 +103,15 @@ function refreshContent(cat, last) {
 	    	Ti.API.debug("ERROR:  " + e.error);
 	    	alert('There was an error retrieving the remote data. Try again.');
 	    },
-	    timeout:5000
+	    timeout:15000
 	});
 	 
-	xhr.open("GET", url+"?cat="+cat+"&last="+last);
+	xhr.open("GET", 'http://cornellsun.com/services/rest/node.json?type='+(categories[cat].type));
 	xhr.send();
+	//xhr.send({data: JSON.stringify(postdata)});
 }
-
-refreshContent("", "");
+renderCategories();
+refreshContent(currCat);
 win.add(scrollView);
 win.add(table);
 win.add(shadow);
@@ -112,23 +120,26 @@ win.add(shadow);
  * Renders the top category bar contents
  */
 
-function renderCategories(categories) {
-	// TODO: add all cat button
+function renderCategories() {
 	currLeftOffset = 5;
-	for (j = 0; j < categories.length; j++) {
+	for (var j = 0; j < categories.length; j++) {
 		
 		t_view = Ti.UI.createView({
 			backgroundColor:'#6E1618',
 			borderRadius:10,
 			borderWidth:0,
 			borderColor:'#336699',
-			backgroundSelectedColor:'#3D090A',
+			//backgroundSelectedColor:'#3D090A',
 			width:110,
 			height:45,
 			top: 5,
 			left:currLeftOffset,
 			raw:categories[j]
 		});
+		if (currCat == j) {
+			t_view.backgroundColor = '#3D090A';
+			currCatLabel = t_view;
+		}
 		scrollView.add(t_view);
 		
 		t_label = Ti.UI.createLabel({
@@ -144,19 +155,28 @@ function renderCategories(categories) {
 		
 		currLeftOffset += 115;
 		
-		t_view.addEventListener('click',function(e) {
-			refreshContent(e.source.raw.id, "");
-			win.title = baseTitleShort + " - " + e.source.raw.name;
-		});
+		var handler = function(index) {
+			return function(e) {
+				refreshContent(index);
+				if(currCatLabel) {
+					currCatLabel.backgroundColor = '#6E1618';
+				}
+				currCatLabel = e.source;
+				Ti.API.info(e.source.backgroundColor);
+				e.source.backgroundColor = '#3D090A';
+			};
+		}
 		
-		if (!isAndroid) {
+		t_view.addEventListener('click',handler(j));
+		
+		/*if (!isAndroid) {
 			t_view.addEventListener('touchstart', function(e) {
 				e.source.backgroundColor = "#3D090A";
 			});
 			t_view.addEventListener('touchend', function(e) {
 				e.source.backgroundColor = "#6E1618";
 			});
-		}
+		}*/
 		
 	}
 	scrollView.contentWidth = currLeftOffset;
@@ -169,8 +189,8 @@ function renderCategories(categories) {
 function refreshTable(json) {
 	tableData = [];
 	table.setData([]);
-	for (i = 0; i < json.articles.length; i++) {
-        article = json.articles[i];
+	for (var i = 0; i < json.length; i++) {
+        article = json[i];
         
         row = Ti.UI.createTableViewRow({
             height: h,
@@ -178,7 +198,7 @@ function refreshTable(json) {
             //hasDetail:(i < 2) // for future unread icons
         });
         
-        hasImage = article.thumb != "";
+        hasImage = false;
         
         view = Ti.UI.createView({
         	top:5,
@@ -196,16 +216,22 @@ function refreshTable(json) {
         	},
         	left: 5,
         	//top: 80,
-        	height:30,
-        	width: (hasImage) ? "70%" : "100%",
+        	//height:30,
+        	height: 'auto',
+        	//width: (hasImage) ? "70%" : "100%",
+        	width: table.size.width-20,
         	//top:(isAndroid) ? 10 : -30,
         	top:5,
         	color:'#000',
         	touchEnabled:false
         });
-        c = article.content.substr(0, 100);
-        if (isAndroid && article.content.length > 47) {
-        	c = article.content.substr(0, 50) + "..."
+        titleLabel.visible = false;
+    	win.add(titleLabel);
+    	win.remove(titleLabel);
+    	titleLabel.visible = true;
+        c = article.teaser.replace( /<[^>]+>/g, '' ).replace( /&nbsp;/g, ' ');
+        if (isAndroid && article.teaser.length > 47) {
+        	c = article.teaser.replace( /<[^>]+>/g, '' ).replace( /&nbsp;/g, ' ').substr(0, 50) + "...";
         }
         contentLabel = Ti.UI.createLabel({
 	        text: c,
@@ -213,13 +239,14 @@ function refreshTable(json) {
 	            fontSize:'16dp'
 	        },
 	        left:5,
-	        top:contentTopPosition,
+	        top: titleLabel.size.height+10,
+	        //top: titleLabel.height,
 	        width: (hasImage) ? "70%" : "100%",
 	        color:'#333',
 	        touchEnabled:false
         });
  		var img;
- 		var media = article.thumb;
+ 		var media = "";
  		if (hasImage) {
 			img = Ti.UI.createImageView({
 				image:media,
@@ -229,11 +256,12 @@ function refreshTable(json) {
 			});
 			view.add(img);
 		}
+		titleLabel.width = "100%"
         view.add(titleLabel);
         view.add(contentLabel);
         row.add(view);
 		tableData.push(row);
-		row.url = article.permalink;
+		row.url = article.uri;
 		row.raw = article;
     }
 	table.setData(tableData);
@@ -246,7 +274,7 @@ table.addEventListener('click',function(e) {
 		title:e.row.raw.title,
 		url:"article.js",
 		backgroundColor: '#fff',
-		data:e.row.raw
+		data_url:e.row.raw.uri+".json"
 	});
 	Titanium.UI.currentTab.open(w,{animated:true});
 });
