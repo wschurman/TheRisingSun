@@ -1,4 +1,5 @@
 Titanium.UI.setBackgroundColor('#FFF');
+var isAndroid = (Titanium.Platform.name == 'android');
 
 var tabGroup = Titanium.UI.createTabGroup({
 	id:'tabGroup1',
@@ -23,7 +24,7 @@ var win2 = Titanium.UI.createWindow({
 	className:'win2',
 	title:'TCAT',
 	backgroundColor: '#fff',
-	url:'tcat.js'
+	url: (isAndroid) ? 'tcat.js' : 'tcat_ios.js'
 });
 
 var tab2 = Titanium.UI.createTab({

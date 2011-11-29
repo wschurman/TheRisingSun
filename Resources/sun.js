@@ -63,7 +63,7 @@ var shadow = Ti.UI.createView({
 	height:5,
 	width: "auto",
 	top: 55
-})
+});
 
 if (isAndroid) {
 	h = 150;
