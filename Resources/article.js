@@ -26,8 +26,8 @@ function loadImageArticle(data) {
 	var xhr = Ti.Network.createHTTPClient({
 		onload: function() {
 			json = JSON.parse(this.responseText);
-			data.image_uri = json.images.iphone;
-			data.image_thumb = json.images.thumbnail;
+			data.image_uri = escape(json.images.iphone);
+			data.image_thumb = escape(json.images.thumbnail);
 			data.image_credit = json.name;
 			data.image_caption = json.body.replace( /<[^>]+>/g, '' ).replace( /&nbsp;/g, ' ');
 			loadArticle(data);
@@ -46,7 +46,7 @@ function loadImageArticle(data) {
 }
 
 function loadArticle(data) {
-	var hasImage = data.field_images[0].nid != null;
+	var hasImage = data.field_images[0].nid != null && !isAndroid;
 	var date = new Date(parseInt(data.created)*1000);
 	
 	var scrollView = Titanium.UI.createScrollView({
@@ -111,7 +111,7 @@ function loadArticle(data) {
 		if(isAndroid) {
 			img = Ti.UI.createImageView({
 				id: 'photo',
-				url: 'http://cornellsun.com/'+data.image_uri, // For android
+				backgroundImage: 'http://cornellsun.com/'+data.image_uri, // For android
 				top: 0,
 				width: '100%',
 				height: 'auto',
@@ -183,26 +183,14 @@ function loadArticle(data) {
 	var comments_button = null;
 	
 	if (hasImage) {
-		
-		if(isAndroid) {
-			image = Ti.UI.createImageView({
-				id:"img",
-				url:"http://cornellsun.com/"+data.image_thumb,
-				top: 0,
-				width:"150px",
-				height:"140px",
-				left:5
-			});
-		} else {
-			image = Ti.UI.createImageView({
-				id:"img",
-				image:"http://cornellsun.com/"+data.image_uri,
-				top: 0,
-				width:"150px",
-				height:"140px",
-				left:5
-			});
-		}
+		image = Ti.UI.createImageView({
+			id:"img",
+			image:"http://cornellsun.com/"+data.image_uri,
+			top: 0,
+			width:"150px",
+			height:"140px",
+			left:5
+		});
 		author_text = Ti.UI.createLabel({
 			id:"author_text",
 			top: 10,
@@ -228,7 +216,7 @@ function loadArticle(data) {
 		
 		img_view.add(image);
 		img_view.add(author_text);
-		img_view.add(comments_button);
+		//img_view.add(comments_button);
 		
 		image.addEventListener('click', function() {
 			viewImage();
@@ -261,7 +249,7 @@ function loadArticle(data) {
 		});
 		
 		img_view.add(author_text);
-		img_view.add(comments_button);
+		//img_view.add(comments_button);
 	}
 	
 	comments_button.addEventListener('click', function()
