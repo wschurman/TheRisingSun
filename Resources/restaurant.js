@@ -1,6 +1,7 @@
 var win = Titanium.UI.currentWindow;
 win.backgroundColor = '#fff';
 
+
 if(win.title == win.data.title){
 	var wview = Titanium.UI.createWebView({
 	url:win.data.url,

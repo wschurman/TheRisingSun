@@ -4,6 +4,11 @@ var baseTitle = "The Cornell Daily Sun";
 var baseTitleShort = "Sun";
 var url = "http://wschurman.com/supports/test_sun.php";
 
+var toast = Titanium.UI.createNotification({
+    duration: 2000,
+    message: "Hi, I'm a toast!"
+});
+
 
 var win = Titanium.UI.currentWindow;
 win.title = baseTitle;
@@ -80,11 +85,13 @@ function refreshTable(json) {
 	table.setData([]);
         article = json.articles[0];
         
+        toast.show();
+        
         var w = Ti.UI.createWindow({
 			title:article.title,
 			url:"article.js",
 			backgroundColor: '#fff',
 			data:article
 		});
-		Titanium.UI.currentTab.open(w,{animated:true});
+		//Titanium.UI.currentTab.open(w,{animated:true});
 }

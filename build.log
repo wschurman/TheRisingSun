@@ -4,18 +4,10 @@ Logfile initialized
 [INFO] Building TheRisingSun for Android ... one moment
 [INFO] Titanium SDK version: 1.7.2 (07/21/11 09:36 97c3689)
 [DEBUG] Waiting for device to be ready ...
-[TRACE] adb devices returned 1 devices/emulators
-[DEBUG] Device connected... (waited 0 seconds)
-[DEBUG] waited 0.044000 seconds on emulator to get ready
-[DEBUG] com.thesun.therisingsun installed? True
-[INFO] Fastdev server running, deploying in Fastdev mode
-[INFO] Copying project resources..
-[TRACE] COPYING MODIFIED FILE: C:\Users\Eric\My Documents\Titanium Studio Workspace\TheRisingSun\Resources\food.js => C:\Users\Eric\My Documents\Titanium Studio Workspace\TheRisingSun\build\android\bin\assets\Resources\food.js
-[INFO] Tiapp.xml unchanged, skipping class generation
-[DEBUG] Processing Android resource drawables
-[INFO] Waiting for SDCard to become available..
-[INFO] Re-launching application ... TheRisingSun
-[INFO] Launching application ... TheRisingSun
-[TRACE] Launch output: Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.thesun.therisingsun/.TherisingsunActivity }
-
-[INFO] Relaunched TheRisingSun ... Application should be running.
+[TRACE] adb devices returned 0 devices/emulators
+[TRACE] adb devices returned 0 devices/emulators
+[TRACE] adb devices returned 0 devices/emulators
+[TRACE] adb devices returned 0 devices/emulators
+[TRACE] adb devices returned 0 devices/emulators
+[TRACE] adb devices returned 0 devices/emulators
+[ERROR] Timed out waiting for emulator to be ready, you may need to close the emulator and try again

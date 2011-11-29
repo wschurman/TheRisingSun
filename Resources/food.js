@@ -3,26 +3,8 @@
 var secondary_layout_is_displayed = false;
 
 
-Ti.UI.currentWindow.addEventListener('android:back', function() { 
-
-	toast.show();
-	
-	var w = Ti.UI.createWindow({
-			title:"test",
-			url:"app.js",
-			backgroundColor: '#fff',
-			data:"none"
-		});
-		Titanium.UI.currentTab.open(w,{animated:true});
-		
-});
-
 var win = Ti.UI.currentWindow;
 var b = Titanium.UI.createButton({title:'title'});
-b.addEventListener('click', function()
-{
-    alert('heelo');
-});
 win.leftNavButton = b;
 
 
@@ -123,19 +105,19 @@ var xhr = Ti.Network.createHTTPClient({
 		   //annotation.pincolor = Titanium.Map.ANNOTATION_RED;
 	        
 	        if(restaurant.avg_rating == 1){
-				annotation.rightButton = 'images/1_starsc.png';
+				annotation.rightButton = 'images/1star.png';
 			}
 			else if(restaurant.avg_rating == 2){
-				annotation.rightButton = 'images/2_starsc.png';
+				annotation.rightButton = 'images/2star.png';
 			}
 			else if(restaurant.avg_rating == 3){
-				annotation.rightButton = 'images/3_starsc.png';
+				annotation.rightButton = 'images/3star.png';
 			}
 			else if(restaurant.avg_rating == 4){
-				annotation.rightButton = 'images/4_starsc.png';
+				annotation.rightButton = 'images/4star.png';
 			}
 			else if(restaurant.avg_rating == 5){
-				annotation.rightButton = 'images/5_starsc.png';
+				annotation.rightButton = 'images/5star.png';
 			}
 			
 	        annotations.push(annotation);
@@ -170,13 +152,39 @@ mapview.addEventListener('click',function(evt)
 			 evt.clicksource == 'title')/*)*/) {
 			 	
         
-        var w = Ti.UI.createWindow({
+        /* 
+         * OLD WAY TO GET TO ARTICLES
+         */
+         /*var w = Ti.UI.createWindow({
 			title:annotation.raw.name,
 			url:"restaurantArticle.js",
 			backgroundColor: '#fff',
 			data:annotation.raw
 		});
-		Titanium.UI.currentTab.open(w,{animated:true});
+		Titanium.UI.currentTab.open(w,{animated:true});*/
+		var cat = "";
+		var last = "";
+		var catRendered = false;
+		
+		var xhr = Ti.Network.createHTTPClient({
+	    onload: function() {
+		    json = JSON.parse(this.responseText);
+		    if(!catRendered) {
+		    	catRendered = true;
+		    }
+		    refreshTable(json);
+		},
+	    onerror: function(e) {
+	    	Ti.API.debug("STATUS: " + this.status);
+	    	Ti.API.debug("TEXT:   " + this.responseText);
+	    	Ti.API.debug("ERROR:  " + e.error);
+	    	alert('There was an error retrieving the remote data. Try again.');
+	    },
+	    timeout:5000
+	});
+	
+		xhr.open("GET", "http://wschurman.com/supports/test_sun.php"+"?cat="+cat+"&last="+last);
+		xhr.send();
 	}
 	else if(evt.clicksource =='rightButton'){
 		var w = Ti.UI.createWindow({
@@ -195,10 +203,43 @@ mapview.addEventListener('click',function(evt)
 			data:annotation.raw.url
 		})
 		
-		win.add(wview);
-		wview.show();
-		
+
+  		  var window = Titanium.UI.createWindow();
+   		 window.add(wview);
+    	window.open({modal:false});
+    	
+    	
+    	window.addEventListener('android:back', function() { 
+    		if(wview.canGoBack()){
+    			wview.goBack();
+    		}
+    		else{
+				window.close();
+    		}
+    	});
 		
 	}
 	
 });
+
+function refreshTable(json) {
+	var tableData = [];
+	var table = Ti.UI.createTableView({
+		top: 30
+	});
+
+	
+	table.setData([]);
+	
+	/**HERE IS WHERE YOU SELECT THE CORRESPONDING ARTICLE*/
+      var article = json.articles[1];
+        
+        
+        var w = Ti.UI.createWindow({
+			title:article.title,
+			url:"article.js",
+			backgroundColor: '#fff',
+			data:article
+		});
+		Titanium.UI.currentTab.open(w,{animated:true});
+}
