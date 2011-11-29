@@ -139,29 +139,31 @@ win.add(submitButton);
 var findRoute = function() {
 	// Make Ajax call to grab data; for now, we just have dummy JSON
 	// var data = $.ajax(startingPoint : userStartingPoint, destination : userDestination)...
-	var data = {
-		startingPoint :
-			{ latitude : 37.390749, longitude : -122.081651, name : 'Mountain View Headquarters'},
-		destination :
-			{ latitude : 37.511389, longitude : -122.208311, name : 'Random Destination'},
-		directions :
-			[
-				'Walk .14 miles to Stop 1 and get on Route 14. It departs at 2:40 PM.',
-				'Travel .80 miles to Stop 2 and get on Route 30. It departs at 3:30 PM.',
-				'Travel .03 miles to Stop 3. This is the final stop. Walk from here to Random Destination.'
-			]
-	}
 	
-	getToField().blur();
+	var xhr = Titanium.Network.createHTTPClient();
+	xhr.onload = function() {
+	    var json = JSON.parse(this.responseText);               
+	    var jsnrows = json.rows;
+	    
+    	getToField().blur();
+    	
+    	var fromParam = getFromField().value;
+    	var toParam = getToField().getSelectedRow(0);
 	
-	var w = Ti.UI.createWindow({
-		title:"TCAT Route - Map",
-		url:"textRoute.js",
-		from:getFromField().value,
-		to:getToField().value,
-		data:data
-	});
-	Titanium.UI.currentTab.open(w,{animated:true});
+		var w = Ti.UI.createWindow({
+			title:"TCAT Route - Map",
+			url:"textRoute.js",
+			from:fromParam,
+			to:toParam,
+			data:json
+		});
+		Titanium.UI.currentTab.open(w,{animated:true});
+	}; 
+	var url = "http://132.236.96.225/TCATServer/main";
+	var params = "?from=" + fromParam + "&to=" + toParam;
+	var completeURL = url + params;
+	xhr.open("GET", completeURL);
+	xhr.send();
 };
 
 var nextBox = function() {
