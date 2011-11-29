@@ -30,16 +30,16 @@ var mapDestination = Titanium.Map.createAnnotation({
 	myid:2
 });
 
-var l = ((data.startingPoint.latitude + data.destination.latitude) / 2);
-var ln = ((data.startingPoint.longitude + data.destination.longitude) / 2);
+var l = (parseFloat(data.startingPoint.latitude) + parseFloat(data.destination.latitude)) /2.0;
+var ln = (parseFloat(data.startingPoint.longitude) + parseFloat(data.destination.longitude)) /2.0;
 // Create the map
 var mapview = Titanium.Map.createView({
 	mapType: Titanium.Map.STANDARD_TYPE,
 	region:{
 		latitude:l,
 		longitude:ln,
-		latitudeDelta:data.startingPoint.latitude - data.destination.latitude,
-		longitudeDelta:data.startingPoint.longitude - data.destination.longitude
+		latitudeDelta:(parseFloat(data.startingPoint.latitude) - parseFloat(data.destination.latitude)),
+		longitudeDelta:(parseFloat(data.startingPoint.longitude) - parseFloat(data.destination.longitude))
 	},
 	animate:true,
 	regionFit:true,

@@ -34,29 +34,38 @@ var array = [];
 var startRow = Titanium.UI.createTableViewRow({height:46, className:'startRow'}); 
 var destRow = Titanium.UI.createTableViewRow({height:46, className:'destRow'}); 
 var timeRow = Titanium.UI.createTableViewRow({height:46, className:'timeRow'});
+var submitRow = Titanium.UI.createTableViewRow({height:65, className:'submitRow', backgroundColor:"transparent", borderColor:"transparent", touchEnabled:false});
 var startLabel = Ti.UI.createLabel({color:'#000000', text:"Start", font:{fontSize:21, fontWeight:'bold'}, top:8, left:12, height:24, width:99});
-var startText = Titanium.UI.createTextField({value:"", color:'#336699', font:{fontSize:16, fontWeight:'bold'},top:8, left:100, height:32, width:184,
-	hintText:'Start',
-	keyboardType:Titanium.UI.KEYBOARD_DEFAULT,
-	returnKeyType:Titanium.UI.RETURNKEY_NEXT,
-	borderStyle:Titanium.UI.INPUT_BORDERSTYLE_ROUNDED
-});
 var destLabel = Ti.UI.createLabel({color:'#000000', text:"Destination", font:{fontSize:21, fontWeight:'bold'}, top:8, left:12, height:24, width:170});
 var timeLabel = Ti.UI.createLabel({color:'#000000', text:"Time", font:{fontSize:21, fontWeight:'bold'}, top:8, left:12, height:24, width:170});
+var startData = Ti.UI.createLabel({color:'#3D4460', text:"", font:{fontSize:17, fontWeight:'normal'}, top:11, left:102, height:20, width:180, textAlign:'right'});
 var destData = Ti.UI.createLabel({color:'#3D4460', text:"", font:{fontSize:17, fontWeight:'normal'}, top:11, left:102, height:20, width:180, textAlign:'right'});	
 var timeData = Ti.UI.createLabel({color:'#3D4460', text:"", font:{fontSize:17, fontWeight:'normal'}, top:11, left:102, height:20, width:180, textAlign:'right'});	
+var timeRaw = "";
+
+submitButton = Titanium.UI.createButton({
+	width:300,
+	height:55,
+	top:10,
+	enabled:true,
+	visible:true,
+	title:SUBMIT_TEXT,
+});
+
 startRow.add(startLabel);
-startRow.add(startText);
+startRow.add(startData);
 destRow.add(destLabel);
 destRow.add(destData);
 timeRow.add(timeLabel);
 timeRow.add(timeData);
+submitRow.add(submitButton);
 array.push(startRow);
 array.push(destRow);
 array.push(timeRow);
+array.push(submitRow);
 
 // Getters
-var getFromField = function() { return startText; };
+var getFromField = function() { return startData; };
 var getToField = function() { return destData; };
 var getTimeField = function() { return timeData; };
 var getSubmitButton = function() { return submitButton; };
@@ -66,6 +75,29 @@ var setSubmitButtonAction = function(event, action) {
 };
 
 var tableView = Titanium.UI.createTableView({data:array, style:Titanium.UI.iPhone.TableViewStyle.GROUPED});
+
+var startView = Ti.UI.createView({
+	height:400,
+	top:-460
+});
+
+var search = Titanium.UI.createSearchBar({
+   height:43,
+   hintText:'Start',
+   top:0,
+   returnKeyType:Titanium.UI.RETURNKEY_NEXT,
+});
+ 
+//AUTOCOMPLETE TABLE
+var table_data = [];
+var autocomplete_table = Titanium.UI.createTableView({
+   search: search,
+   scrollable: true,
+   top:0
+});
+startView.add(autocomplete_table);
+
+
 var destPickerView = Titanium.UI.createView({height:260,bottom:-260});
 var timePickerView = Titanium.UI.createView({height:260,bottom:-260});
 
@@ -115,12 +147,14 @@ timePickerView.add(timePicker);
 
 var slideIn =  Titanium.UI.createAnimation({bottom:-40});
 var slideOut =  Titanium.UI.createAnimation({bottom:-265});
+var slideInTop =  Titanium.UI.createAnimation({top:0});
+var slideOutTop =  Titanium.UI.createAnimation({top:-460});
 
 // event functions
 tableView.addEventListener('click', function(eventObject){
 	if (eventObject.rowData.className == "timeRow")
 	{
-		startText.blur();
+		startView.animate(slideOutTop);
 		destPickerView.animate(slideOut);	
 		timePickerView.animate(slideIn);		
 	}
@@ -128,19 +162,25 @@ tableView.addEventListener('click', function(eventObject){
 	{
 		destPickerView.animate(slideOut);
 		timePickerView.animate(slideOut);
-		startText.focus();	
+		startView.animate(slideInTop);
 	}
 	else if (eventObject.rowData.className == "destRow")
 	{
 		timePickerView.animate(slideOut);
 		destPickerView.animate(slideIn);
-		startText.blur();	
+		startView.animate(slideOutTop);	
 	};
+});
+
+search.addEventListener('cancel', function(){
+	startView.animate(slideOutTop);
 });
 
 timePicker.addEventListener('change',function(e)
 {
-	timeData.text = e.value;
+	var d = new Date(e.value);
+	timeRaw = e.value;
+	timeData.text = d.toLocaleTimeString();
 	tableView.setData(array);
 });
 
@@ -150,10 +190,10 @@ destPicker.addEventListener('change',function(e)
 	tableView.setData(array);
 });
 
-startText.addEventListener('focus',function() {
+/*start.addEventListener('focus',function() {
 	destPickerView.animate(slideOut);
 	timePickerView.animate(slideOut);
-});
+});*/
 
 
 destDone.addEventListener('click', function(event) {
@@ -162,23 +202,17 @@ destDone.addEventListener('click', function(event) {
   	destPickerView.animate(slideOut);
 });
 timeDone.addEventListener('click', function(event) {
-  	timeData.text = timePicker.value;
+  	var d = new Date(timePicker.value);
+  	timeRaw = timePicker.value;
+	timeData.text = d.toLocaleTimeString();
 	tableView.setData(array);
   	timePickerView.animate(slideOut);
-});
-
-submitButton = Titanium.UI.createButton({
-	width:300,
-	height:55,
-	top:170,
-	enabled:true,
-	visible:true,
-	title:SUBMIT_TEXT,
 });
 
 // Add all of our built-up elements
 win.add(tableView);
 win.add(submitButton);
+win.add(startView);
 win.add(destPickerView);
 win.add(timePickerView);
 
@@ -192,7 +226,6 @@ var findRoute = function() {
 	    		alert('There was an error retrieving the remote data. Try again. '+ this.status);
 	    		return;
 	    	}
-	    	
 		    json = JSON.parse(this.responseText);
 		    openMap(json);
 		},
@@ -205,7 +238,7 @@ var findRoute = function() {
 	    timeout:5000
 	});
 	
-	xhr.open("GET", url+"?to="+getToField().value+"&from="+getFromField().value);
+	xhr.open("GET", url+"?from="+startData.text+"&to="+destData.text);
 	xhr.send();
 };
 
@@ -213,8 +246,8 @@ function openMap(data) {
 	var w = Ti.UI.createWindow({
 		title:"TCAT Route",
 		url:"mapRoute_ios.js",
-		from:getFromField().value,
-		to:getToField().value,
+		from:startData.text,
+		to:destData.text,
 		data:data
 	});
 	Titanium.UI.currentTab.open(w,{animated:true});
@@ -222,3 +255,67 @@ function openMap(data) {
 
 setSubmitButtonAction('click', findRoute);
 
+//
+// SEARCH BAR EVENTS
+//
+var timers = [];
+var last_search = null;
+search.addEventListener('change', function(e)
+{
+   if (search.value.length > 2 && search.value !=  last_search)
+   {
+      clearTimeout(timers['autocomplete']);
+      timers['autocomplete'] = setTimeout(function()
+      {
+         last_search =search.value;
+         auto_complete(search.value);
+      }, 300);
+   }
+   return false;
+});
+
+autocomplete_table.addEventListener("click", function(e) {
+	startData.text = e.row.title;
+	startView.animate(slideOutTop);
+});
+ 
+function auto_complete(search_term)
+{
+    if (search_term.length > 2)
+    {
+        var url2 = url + '?search=' + escape(search_term);
+        var ajax_cache_domain = 'autocomplete';
+        var params = {};
+        var cache_for = '+7 days';
+        
+        var xhr = Ti.Network.createHTTPClient({
+		    onload: function() {
+		    	var json2 = JSON.parse(this.responseText);
+		    	var list = json2.possible_searches;
+
+	            for (var i = 0; i < list.length; i++)
+	            {
+	                //Ti.API.info('row data - ' + data[i].value);
+	                var row = Ti.UI.createTableViewRow({
+	                    height: 40,
+	                    title: list[i].replace(/^\s+|\s+$/g,""),
+	                    hasDetail:true
+	                });
+	                table_data.push(row);
+	            }
+	            autocomplete_table.setData(table_data);
+        		search.value = search.value;
+			},
+		    onerror: function(e) {
+		    	Ti.API.debug("STATUS: " + this.status);
+		    	Ti.API.debug("TEXT:   " + this.responseText);
+		    	Ti.API.debug("ERROR:  " + e.error);
+		    	alert('There was an error retrieving the remote data. Try again.');
+		    },
+		    timeout:5000
+		});
+		
+		xhr.open("GET", url2);
+		xhr.send();
+    }
+}
