@@ -1,6 +1,6 @@
 var isAndroid = (Titanium.Platform.name == 'android');
 
-var url = "http://132.236.96.225/TCATServer/main/";
+var url = "http://132.236.96.239/TCATServer/main/";
 
 // Strings
 var FROM_LABEL = 'Starting Point';
@@ -9,12 +9,30 @@ var DEPART_LABEL = 'Departure Time';
 var SUBMIT_TEXT = 'Find Route!';
 
 // Destinations - maybe change to Ajax call in the future
+
+var destination_texts = [
+	"Ag Quad",
+	"Airport",
+	"Arts Quad",
+	"Central Campus",
+	"Collegetown",
+	"Downtown",
+	"Engineering Quad",
+	"Hasbrouk Apartments",
+	"Ithaca College",
+	"North Campus",
+	"Pyramid Mall",
+	"The Commons",
+	"Wegmans",
+	"West Campus"
+];
+
 var destinations = [];
-destinations[0]=Titanium.UI.createPickerRow({title:'North Campus'});
-destinations[1]=Titanium.UI.createPickerRow({title:'Central Campus'});
-destinations[2]=Titanium.UI.createPickerRow({title:'Collegetown'});
-destinations[3]=Titanium.UI.createPickerRow({title:'Downtown'});
-destinations[4]=Titanium.UI.createPickerRow({title:'Pyramid Mall'});
+
+for (var j = 0; j < destination_texts.length; j++) {
+	destinations[j] = Titanium.UI.createPickerRow({title:destination_texts[j]});
+}
+
 
 // Heights and widths
 var ELEMENT_HEIGHT = 55;
@@ -38,15 +56,26 @@ var submitRow = Titanium.UI.createTableViewRow({height:65, className:'submitRow'
 var startLabel = Ti.UI.createLabel({color:'#000000', text:"Start", font:{fontSize:21, fontWeight:'bold'}, top:8, left:12, height:24, width:99});
 var destLabel = Ti.UI.createLabel({color:'#000000', text:"Destination", font:{fontSize:21, fontWeight:'bold'}, top:8, left:12, height:24, width:170});
 var timeLabel = Ti.UI.createLabel({color:'#000000', text:"Time", font:{fontSize:21, fontWeight:'bold'}, top:8, left:12, height:24, width:170});
-var startData = Ti.UI.createLabel({color:'#3D4460', text:"", font:{fontSize:17, fontWeight:'normal'}, top:11, left:102, height:20, width:180, textAlign:'right'});
+var startData = Ti.UI.createLabel({color:'#3D4460', text:"", font:{fontSize:17, fontWeight:'normal'}, top:11, left:102, height:20, width:150, textAlign:'right'});
 var destData = Ti.UI.createLabel({color:'#3D4460', text:"", font:{fontSize:17, fontWeight:'normal'}, top:11, left:102, height:20, width:180, textAlign:'right'});	
 var timeData = Ti.UI.createLabel({color:'#3D4460', text:"", font:{fontSize:17, fontWeight:'normal'}, top:11, left:102, height:20, width:180, textAlign:'right'});	
 var timeRaw = "";
+var startCurrentLocation = Ti.UI.createButton({
+	image:"images/currloc.png",
+	backgroundColor:"#3b7ef1",
+	right: 10,
+	top:10,
+	style: Titanium.UI.iPhone.SystemButtonStyle.BAR,
+	borderRadius: 13,
+	width: 26,
+	height: 26,
+	className:"currBtn"
+});
 
 submitButton = Titanium.UI.createButton({
 	width:300,
 	height:55,
-	top:10,
+	top:200,
 	enabled:true,
 	visible:true,
 	title:SUBMIT_TEXT,
@@ -54,15 +83,16 @@ submitButton = Titanium.UI.createButton({
 
 startRow.add(startLabel);
 startRow.add(startData);
+startRow.add(startCurrentLocation);
 destRow.add(destLabel);
 destRow.add(destData);
 timeRow.add(timeLabel);
 timeRow.add(timeData);
-submitRow.add(submitButton);
+//submitRow.add(submitButton);
 array.push(startRow);
 array.push(destRow);
 array.push(timeRow);
-array.push(submitRow);
+//array.push(submitRow);
 
 // Getters
 var getFromField = function() { return startData; };
@@ -74,7 +104,7 @@ var setSubmitButtonAction = function(event, action) {
 	submitButton.addEventListener(event, action);
 };
 
-var tableView = Titanium.UI.createTableView({data:array, style:Titanium.UI.iPhone.TableViewStyle.GROUPED});
+var tableView = Titanium.UI.createTableView({data:array, style:Titanium.UI.iPhone.TableViewStyle.GROUPED, scrollable: false});
 
 var startView = Ti.UI.createView({
 	height:400,
@@ -83,7 +113,8 @@ var startView = Ti.UI.createView({
 
 var search = Titanium.UI.createSearchBar({
    height:43,
-   hintText:'Start',
+   showCancel:true,
+   hintText:'Search...',
    top:0,
    returnKeyType:Titanium.UI.RETURNKEY_NEXT,
 });
@@ -160,9 +191,11 @@ tableView.addEventListener('click', function(eventObject){
 	}
 	else if (eventObject.rowData.className == "startRow")
 	{
-		destPickerView.animate(slideOut);
-		timePickerView.animate(slideOut);
-		startView.animate(slideInTop);
+		if (eventObject.source.className != "currBtn") {
+			destPickerView.animate(slideOut);
+			timePickerView.animate(slideOut);
+			startView.animate(slideInTop);
+		}
 	}
 	else if (eventObject.rowData.className == "destRow")
 	{
@@ -227,18 +260,22 @@ var findRoute = function() {
 	    		return;
 	    	}
 		    json = JSON.parse(this.responseText);
+		    if (json.error) {
+		    	alert(json.error);
+	    		return;
+		    }
 		    openMap(json);
 		},
 	    onerror: function(e) {
 	    	Ti.API.debug("STATUS: " + this.status);
 	    	Ti.API.debug("TEXT:   " + this.responseText);
 	    	Ti.API.debug("ERROR:  " + e.error);
-	    	alert('There was an error retrieving the remote data. Try again.');
+	    	alert('There was an error retrieving the remote data. Please try again.');
 	    },
 	    timeout:5000
 	});
 	
-	xhr.open("GET", url+"?from="+startData.text+"&to="+destData.text);
+	xhr.open("GET", url+"?from="+startData.text+"&to="+destData.text+"&date="+timeRaw);
 	xhr.send();
 };
 
@@ -262,8 +299,7 @@ var timers = [];
 var last_search = null;
 search.addEventListener('change', function(e)
 {
-   if (search.value.length > 2 && search.value !=  last_search)
-   {
+   if (search.value.length > 1 && search.value != last_search) {
       clearTimeout(timers['autocomplete']);
       timers['autocomplete'] = setTimeout(function()
       {
@@ -284,15 +320,15 @@ function auto_complete(search_term)
     if (search_term.length > 2)
     {
         var url2 = url + '?search=' + escape(search_term);
-        var ajax_cache_domain = 'autocomplete';
-        var params = {};
-        var cache_for = '+7 days';
         
         var xhr = Ti.Network.createHTTPClient({
 		    onload: function() {
+		    	if (this.status != 200) {
+	    			return;
+	    		}
 		    	var json2 = JSON.parse(this.responseText);
 		    	var list = json2.possible_searches;
-
+				table_data = [];
 	            for (var i = 0; i < list.length; i++)
 	            {
 	                //Ti.API.info('row data - ' + data[i].value);
@@ -310,12 +346,62 @@ function auto_complete(search_term)
 		    	Ti.API.debug("STATUS: " + this.status);
 		    	Ti.API.debug("TEXT:   " + this.responseText);
 		    	Ti.API.debug("ERROR:  " + e.error);
-		    	alert('There was an error retrieving the remote data. Try again.');
 		    },
-		    timeout:5000
+		    timeout:1500
 		});
 		
 		xhr.open("GET", url2);
 		xhr.send();
     }
 }
+
+startCurrentLocation.addEventListener("click", function(e) {
+	Ti.Geolocation.preferredProvider = "gps";
+	Ti.Geolocation.purpose = "GPS demo";
+	
+	if(Ti.Platform.model == 'iPhone Simulator') {
+    	startData.text = "42.445438,-76.488844";
+    	return;
+	}
+	
+	if (Titanium.Geolocation.locationServicesEnabled === false) {
+		Titanium.UI.createAlertDialog({title:'TCAT', message:'Your device has geolocation turned off. Please enter your location manually.'}).show();
+	} else {
+		
+		if (Titanium.Platform.name != 'android') {
+			var authorization = Titanium.Geolocation.locationServicesAuthorization;
+			Ti.API.info('Authorization: '+authorization);
+			if (authorization == Titanium.Geolocation.AUTHORIZATION_DENIED) {
+				Ti.UI.createAlertDialog({
+					title:'TCAT',
+					message:'You have disallowed Titanium from running geolocation services. Please enter your location manually.'
+				}).show();
+			}
+			else if (authorization == Titanium.Geolocation.AUTHORIZATION_RESTRICTED) {
+				Ti.UI.createAlertDialog({
+					title:'TCAT',
+					message:'Your system has disallowed Titanium from running geolocation services. Please enter your location manually.'
+				}).show();
+			}
+		}
+		
+		Titanium.Geolocation.accuracy = Titanium.Geolocation.ACCURACY_BEST;
+		
+		Titanium.Geolocation.getCurrentPosition(function(e) {
+			if (!e.success || e.error)
+			{
+				alert('There was an error getting your position. Please enter your location manually.');
+				return;
+			}
+	
+			var longitude = e.coords.longitude;
+			var latitude = e.coords.latitude;
+	
+			Titanium.API.info('geo - current location: ' + new Date(timestamp) + ' long ' + longitude + ' lat ' + latitude + ' accuracy ' + accuracy);
+			
+			startData.text = latitude+","+longitude;
+		});
+	}
+	
+	return false;
+});

@@ -38,8 +38,8 @@ var mapview = Titanium.Map.createView({
 	region:{
 		latitude:l,
 		longitude:ln,
-		latitudeDelta:(parseFloat(data.startingPoint.latitude) - parseFloat(data.destination.latitude)),
-		longitudeDelta:(parseFloat(data.startingPoint.longitude) - parseFloat(data.destination.longitude))
+		latitudeDelta:Math.abs((parseFloat(data.startingPoint.latitude) - parseFloat(data.destination.latitude))),
+		longitudeDelta:Math.abs((parseFloat(data.startingPoint.longitude) - parseFloat(data.destination.longitude)))
 	},
 	animate:true,
 	regionFit:true,
@@ -81,10 +81,12 @@ for(i = 0; i < win.data.directions.length; i++) {
 	var annotation3 = Titanium.Map.createAnnotation({
 			latitude: dir.latitude,
 		    longitude: dir.longitude,
-		    pincolor: (i == win.data.directions.length - 1) ? Titanium.Map.ANNOTATION_GREEN : Titanium.Map.ANNOTATION_RED,
+		    pincolor: Titanium.Map.ANNOTATION_GREEN,
+		    image:"bpin.png",
 		    title:"Step "+(i+1),
 		    subtitle:dir.direction,
 		    data: dir.direction,
+		    animate: true,
 		    myid: 3
 	});
 	mapview.addAnnotation(annotation3);
@@ -95,7 +97,7 @@ if (pointsArr.length > 0) {
 	mapview.addRoute({
 	    name: 'myroute',
 	    width: 4,
-	    color: '#f00',
+	    color: '#8D8DFF',
 	    points: pointsArr
 	});
 }
