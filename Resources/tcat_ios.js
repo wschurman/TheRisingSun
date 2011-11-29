@@ -1,5 +1,7 @@
 var isAndroid = (Titanium.Platform.name == 'android');
 
+var url = "http://132.236.96.225/TCATServer/main/";
+
 // Strings
 var FROM_LABEL = 'Starting Point';
 var TO_LABEL = 'Destination';
@@ -184,30 +186,39 @@ win.add(timePickerView);
 var findRoute = function() {
 	// Make Ajax call to grab data; for now, we just have dummy JSON
 	// var data = $.ajax(startingPoint : userStartingPoint, destination : userDestination)...
-	var data = {
-		startingPoint :
-			{ latitude : 37.390749, longitude : -122.081651, name : 'Mountain View Headquarters'},
-		destination :
-			{ latitude : 37.511389, longitude : -122.208311, name : 'Random Destination'},
-		directions :
-			[
-				'Walk .14 miles to Stop 1 and get on Route 14. It departs at 2:40 PM.',
-				'Travel .80 miles to Stop 2 and get on Route 30. It departs at 3:30 PM.',
-				'Travel .03 miles to Stop 3. This is the final stop. Walk from here to Random Destination.'
-			]
-	}
+	var xhr = Ti.Network.createHTTPClient({
+	    onload: function() {
+	    	if (this.status != 200) {
+	    		alert('There was an error retrieving the remote data. Try again. '+ this.status);
+	    		return;
+	    	}
+	    	
+		    json = JSON.parse(this.responseText);
+		    openMap(json);
+		},
+	    onerror: function(e) {
+	    	Ti.API.debug("STATUS: " + this.status);
+	    	Ti.API.debug("TEXT:   " + this.responseText);
+	    	Ti.API.debug("ERROR:  " + e.error);
+	    	alert('There was an error retrieving the remote data. Try again.');
+	    },
+	    timeout:5000
+	});
 	
+	xhr.open("GET", url+"?to="+getToField().value+"&from="+getFromField().value);
+	xhr.send();
+};
+
+function openMap(data) {
 	var w = Ti.UI.createWindow({
-		title:"TCAT Route - Map",
-		url:"textRoute.js",
+		title:"TCAT Route",
+		url:"mapRoute_ios.js",
 		from:getFromField().value,
 		to:getToField().value,
 		data:data
 	});
 	Titanium.UI.currentTab.open(w,{animated:true});
-};
+}
 
 setSubmitButtonAction('click', findRoute);
-
-
 

@@ -190,3 +190,4 @@ Logfile initialized
 [TRACE] Launch output: Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.thesun.therisingsun/.TherisingsunActivity }
 
 [INFO] Deployed TheRisingSun ... Application should be running.
+[INFO] Android Emulator has exited
