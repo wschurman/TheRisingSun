@@ -38,8 +38,13 @@ var mapview = Titanium.Map.createView({
 	region:{
 		latitude:l,
 		longitude:ln,
+<<<<<<< HEAD
 		latitudeDelta:Math.abs((parseFloat(data.startingPoint.latitude) - parseFloat(data.destination.latitude))),
 		longitudeDelta:Math.abs((parseFloat(data.startingPoint.longitude) - parseFloat(data.destination.longitude)))
+=======
+		latitudeDelta:(parseFloat(data.startingPoint.latitude) - parseFloat(data.destination.latitude)),
+		longitudeDelta:(parseFloat(data.startingPoint.longitude) - parseFloat(data.destination.longitude))
+>>>>>>> 76cc1c2dac7c341ececded176e1747475a5642ef
 	},
 	animate:true,
 	regionFit:true,
