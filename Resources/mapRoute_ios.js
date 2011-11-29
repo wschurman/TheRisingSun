@@ -38,13 +38,8 @@ var mapview = Titanium.Map.createView({
 	region:{
 		latitude:l,
 		longitude:ln,
-<<<<<<< HEAD
 		latitudeDelta:Math.abs((parseFloat(data.startingPoint.latitude) - parseFloat(data.destination.latitude))),
 		longitudeDelta:Math.abs((parseFloat(data.startingPoint.longitude) - parseFloat(data.destination.longitude)))
-=======
-		latitudeDelta:(parseFloat(data.startingPoint.latitude) - parseFloat(data.destination.latitude)),
-		longitudeDelta:(parseFloat(data.startingPoint.longitude) - parseFloat(data.destination.longitude))
->>>>>>> 76cc1c2dac7c341ececded176e1747475a5642ef
 	},
 	animate:true,
 	regionFit:true,
@@ -107,6 +102,16 @@ if (pointsArr.length > 0) {
 	});
 }
 
+/*mapview.addEventListener('click',function(evt)
+{
+	// map event properties
+	Ti.API.debug("CLICKED, evt.cls = "+evt.clicksource);
+	if (evt.clicksource != null && evt.annotation.data != null) {
+		direction_text.text = evt.annotation.data;
+	}
+	
+});*/
+
 // Create the link to the textual directions
 var listBtn = Titanium.UI.createButton({
 	image:"images/sort.png"
@@ -136,3 +141,5 @@ Titanium.UI.currentWindow.setRightNavButton(listBtn);
 
 mapview.selectAnnotation(mapStartingPoint);
 win.add(mapview);
+//win.add(shadow);
+//win.add(dirview);

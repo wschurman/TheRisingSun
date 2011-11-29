@@ -56,8 +56,6 @@ var submitRow = Titanium.UI.createTableViewRow({height:65, className:'submitRow'
 var startLabel = Ti.UI.createLabel({color:'#000000', text:"Start", font:{fontSize:21, fontWeight:'bold'}, top:8, left:12, height:24, width:99});
 var destLabel = Ti.UI.createLabel({color:'#000000', text:"Destination", font:{fontSize:21, fontWeight:'bold'}, top:8, left:12, height:24, width:170});
 var timeLabel = Ti.UI.createLabel({color:'#000000', text:"Time", font:{fontSize:21, fontWeight:'bold'}, top:8, left:12, height:24, width:170});
-<<<<<<< HEAD
-
 var startData = Ti.UI.createLabel({color:'#3D4460', text:"", font:{fontSize:17, fontWeight:'normal'}, top:11, left:102, height:20, width:150, textAlign:'right'});
 var destData = Ti.UI.createLabel({color:'#3D4460', text:"", font:{fontSize:17, fontWeight:'normal'}, top:11, left:102, height:20, width:180, textAlign:'right'});	
 var timeData = Ti.UI.createLabel({color:'#3D4460', text:"", font:{fontSize:17, fontWeight:'normal'}, top:11, left:102, height:20, width:180, textAlign:'right'});	
@@ -73,21 +71,11 @@ var startCurrentLocation = Ti.UI.createButton({
 	height: 26,
 	className:"currBtn"
 });
-=======
-var startData = Ti.UI.createLabel({color:'#3D4460', text:"", font:{fontSize:17, fontWeight:'normal'}, top:11, left:102, height:20, width:180, textAlign:'right'});
-var destData = Ti.UI.createLabel({color:'#3D4460', text:"", font:{fontSize:17, fontWeight:'normal'}, top:11, left:102, height:20, width:180, textAlign:'right'});	
-var timeData = Ti.UI.createLabel({color:'#3D4460', text:"", font:{fontSize:17, fontWeight:'normal'}, top:11, left:102, height:20, width:180, textAlign:'right'});	
-var timeRaw = "";
->>>>>>> 76cc1c2dac7c341ececded176e1747475a5642ef
 
 submitButton = Titanium.UI.createButton({
 	width:300,
 	height:55,
-<<<<<<< HEAD
 	top:200,
-=======
-	top:10,
->>>>>>> 76cc1c2dac7c341ececded176e1747475a5642ef
 	enabled:true,
 	visible:true,
 	title:SUBMIT_TEXT,
@@ -95,20 +83,16 @@ submitButton = Titanium.UI.createButton({
 
 startRow.add(startLabel);
 startRow.add(startData);
-<<<<<<< HEAD
 startRow.add(startCurrentLocation);
-
-=======
->>>>>>> 76cc1c2dac7c341ececded176e1747475a5642ef
 destRow.add(destLabel);
 destRow.add(destData);
 timeRow.add(timeLabel);
 timeRow.add(timeData);
-submitRow.add(submitButton);
+//submitRow.add(submitButton);
 array.push(startRow);
 array.push(destRow);
 array.push(timeRow);
-array.push(submitRow);
+//array.push(submitRow);
 
 // Getters
 var getFromField = function() { return startData; };
@@ -120,11 +104,7 @@ var setSubmitButtonAction = function(event, action) {
 	submitButton.addEventListener(event, action);
 };
 
-<<<<<<< HEAD
 var tableView = Titanium.UI.createTableView({data:array, style:Titanium.UI.iPhone.TableViewStyle.GROUPED, scrollable: false});
-=======
-var tableView = Titanium.UI.createTableView({data:array, style:Titanium.UI.iPhone.TableViewStyle.GROUPED});
->>>>>>> 76cc1c2dac7c341ececded176e1747475a5642ef
 
 var startView = Ti.UI.createView({
 	height:400,
@@ -133,12 +113,8 @@ var startView = Ti.UI.createView({
 
 var search = Titanium.UI.createSearchBar({
    height:43,
-<<<<<<< HEAD
    showCancel:true,
    hintText:'Search...',
-=======
-   hintText:'Start',
->>>>>>> 76cc1c2dac7c341ececded176e1747475a5642ef
    top:0,
    returnKeyType:Titanium.UI.RETURNKEY_NEXT,
 });
@@ -215,17 +191,11 @@ tableView.addEventListener('click', function(eventObject){
 	}
 	else if (eventObject.rowData.className == "startRow")
 	{
-<<<<<<< HEAD
 		if (eventObject.source.className != "currBtn") {
 			destPickerView.animate(slideOut);
 			timePickerView.animate(slideOut);
 			startView.animate(slideInTop);
 		}
-=======
-		destPickerView.animate(slideOut);
-		timePickerView.animate(slideOut);
-		startView.animate(slideInTop);
->>>>>>> 76cc1c2dac7c341ececded176e1747475a5642ef
 	}
 	else if (eventObject.rowData.className == "destRow")
 	{
@@ -253,14 +223,11 @@ destPicker.addEventListener('change',function(e)
 	tableView.setData(array);
 });
 
-<<<<<<< HEAD
-=======
 /*start.addEventListener('focus',function() {
 	destPickerView.animate(slideOut);
 	timePickerView.animate(slideOut);
 });*/
 
->>>>>>> 76cc1c2dac7c341ececded176e1747475a5642ef
 
 destDone.addEventListener('click', function(event) {
   	destData.text = destPicker.getSelectedRow(0).title;
@@ -308,11 +275,7 @@ var findRoute = function() {
 	    timeout:5000
 	});
 	
-<<<<<<< HEAD
 	xhr.open("GET", url+"?from="+startData.text+"&to="+destData.text+"&date="+timeRaw);
-=======
-	xhr.open("GET", url+"?from="+startData.text+"&to="+destData.text);
->>>>>>> 76cc1c2dac7c341ececded176e1747475a5642ef
 	xhr.send();
 };
 
@@ -336,12 +299,7 @@ var timers = [];
 var last_search = null;
 search.addEventListener('change', function(e)
 {
-<<<<<<< HEAD
    if (search.value.length > 1 && search.value != last_search) {
-=======
-   if (search.value.length > 2 && search.value !=  last_search)
-   {
->>>>>>> 76cc1c2dac7c341ececded176e1747475a5642ef
       clearTimeout(timers['autocomplete']);
       timers['autocomplete'] = setTimeout(function()
       {
@@ -362,7 +320,6 @@ function auto_complete(search_term)
     if (search_term.length > 2)
     {
         var url2 = url + '?search=' + escape(search_term);
-<<<<<<< HEAD
         
         var xhr = Ti.Network.createHTTPClient({
 		    onload: function() {
@@ -372,17 +329,6 @@ function auto_complete(search_term)
 		    	var json2 = JSON.parse(this.responseText);
 		    	var list = json2.possible_searches;
 				table_data = [];
-=======
-        var ajax_cache_domain = 'autocomplete';
-        var params = {};
-        var cache_for = '+7 days';
-        
-        var xhr = Ti.Network.createHTTPClient({
-		    onload: function() {
-		    	var json2 = JSON.parse(this.responseText);
-		    	var list = json2.possible_searches;
-
->>>>>>> 76cc1c2dac7c341ececded176e1747475a5642ef
 	            for (var i = 0; i < list.length; i++)
 	            {
 	                //Ti.API.info('row data - ' + data[i].value);
@@ -400,20 +346,14 @@ function auto_complete(search_term)
 		    	Ti.API.debug("STATUS: " + this.status);
 		    	Ti.API.debug("TEXT:   " + this.responseText);
 		    	Ti.API.debug("ERROR:  " + e.error);
-		    	alert('There was an error retrieving the remote data. Try again.');
 		    },
-<<<<<<< HEAD
 		    timeout:1500
-=======
-		    timeout:5000
->>>>>>> 76cc1c2dac7c341ececded176e1747475a5642ef
 		});
 		
 		xhr.open("GET", url2);
 		xhr.send();
     }
 }
-<<<<<<< HEAD
 
 startCurrentLocation.addEventListener("click", function(e) {
 	Ti.Geolocation.preferredProvider = "gps";
@@ -465,5 +405,3 @@ startCurrentLocation.addEventListener("click", function(e) {
 	
 	return false;
 });
-=======
->>>>>>> 76cc1c2dac7c341ececded176e1747475a5642ef
