@@ -88,10 +88,6 @@ if (!isAndroid) Titanium.UI.currentWindow.setRightNavButton(r);
 
 function refreshContent(cat) {
 	currCat = cat;
-	var postdata = {
-		method: 'node.get',
-		nid: 49070 
-	};
 	var xhr = Ti.Network.createHTTPClient({
 	    onload: function() {
 		    json = JSON.parse(this.responseText);
@@ -108,7 +104,6 @@ function refreshContent(cat) {
 	 
 	xhr.open("GET", 'http://cornellsun.com/services/rest/node.json?type='+(categories[cat].type));
 	xhr.send();
-	//xhr.send({data: JSON.stringify(postdata)});
 }
 renderCategories();
 refreshContent(currCat);

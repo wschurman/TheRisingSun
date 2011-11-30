@@ -37,7 +37,7 @@ var tab2 = Titanium.UI.createTab({
 
 var win3 = Titanium.UI.createWindow({
 	className:'win3',
-	title:'Food',
+	title:'Dining Guide',
 	backgroundColor: '#fff',
 	url:'food.js'
 });
