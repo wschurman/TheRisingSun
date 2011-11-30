@@ -141,6 +141,6 @@ Titanium.UI.currentWindow.setRightNavButton(listBtn);
 
 mapview.selectAnnotation(mapStartingPoint);
 win.add(mapview);
-//hello
+////hello
 //win.add(shadow);
 //win.add(dirview);

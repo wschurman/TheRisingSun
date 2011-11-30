@@ -405,3 +405,4 @@ startCurrentLocation.addEventListener("click", function(e) {
 	
 	return false;
 });
+//hello
