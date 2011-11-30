@@ -1,6 +1,6 @@
 var isAndroid = (Titanium.Platform.name == 'android');
 
-var url = "http://132.236.96.239/TCATServer/main/";
+var url = "http://tcat.elasticbeanstalk.com/main";
 
 // Strings
 var FROM_LABEL = 'Starting Point';

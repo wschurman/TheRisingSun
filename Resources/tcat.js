@@ -1,5 +1,5 @@
 // URL for AJAX
-var AJAX_URL = "http://132.236.96.239/TCATServer/main";
+var AJAX_URL = "http://tcat.elasticbeanstalk.com/main";
 
 // Styling
 FONT_FAMILY = 'Droid Sans';
