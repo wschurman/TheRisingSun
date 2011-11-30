@@ -4,17 +4,8 @@ var userStartingPoint = win.from;
 var userDestination = win.to;
 var data = win.data;
 
-var grayBackground = "#E2E4EA";
-var whiteBackground = "#FFFFFF";
-
-var backgroundWindow = Titanium.UI.createView({
-	backgroundColor: (data.directions.length % 2 == 1) ? grayBackground : whiteBackground,
-	height:'auto',
-	width:'auto'	
-})
-
 var table = Ti.UI.createTableView({
-	top:0
+	top: 0
 });
 
 var row;
@@ -24,7 +15,7 @@ var tableData = [];
 for (var k = 0; k < data.directions.length; k++) {
 	row = Ti.UI.createTableViewRow({
             height: 60,
-            backgroundColor: (k % 2 == 1) ? grayBackground : whiteBackground
+            backgroundColor: (k % 2 == 1) ? "#E2E4EA" : "#fff"
             //hasChild:true,
             //hasDetail:(i < 2) // for future unread icons
         });
@@ -32,16 +23,14 @@ for (var k = 0; k < data.directions.length; k++) {
 	var view = Titanium.UI.createView({
 	});
 	
-	var curStep = k+1 + ".";
-	
 	var num = Titanium.UI.createLabel({
 		color:"#333",
 		font:{
 			fontSize:20
 		},
-		text:curStep,
+		text:k+1,
 		left: 10,
-		width: 35,
+		width: 25,
 		textAlign:"center"
 	});
 	
@@ -52,15 +41,15 @@ for (var k = 0; k < data.directions.length; k++) {
 		},		
 		text:data.directions[k].direction,
 		top:0,
-		left: 55,
+		left: 45,
 		height: 60
 	});
 	view.add(num);
-	view.add(label);
+	view.add(label)
 	row.add(view);
 	tableData.push(row);
 }
 
 table.setData(tableData);
-backgroundWindow.add(table);
-win.add(backgroundWindow);
+
+win.add(table);

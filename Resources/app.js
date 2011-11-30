@@ -22,7 +22,7 @@ var tab1 = Titanium.UI.createTab({
 
 var win2 = Titanium.UI.createWindow({
 	className:'win2',
-	title:'TCAT',
+	title:'Take the Bus',
 	backgroundColor: '#fff',
 	url: (isAndroid) ? 'tcat.js' : 'tcat_ios.js'
 });
@@ -30,7 +30,7 @@ var win2 = Titanium.UI.createWindow({
 var tab2 = Titanium.UI.createTab({
 	id:'tab2',
 	icon:'images/tabs/bus.png',
-	title:'TCAT',
+	title:'Take the Bus',
 	window:win2
 });
 

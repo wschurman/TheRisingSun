@@ -120,7 +120,7 @@ listBtn.addEventListener('click',function()
 {
 	var w = Titanium.UI.createWindow({
 		title:"TCAT Route - Text",
-		url:"textRoute.js",
+		url:"textRoute_ios.js",
 		from:userStartingPoint,
 		to:userDestination,
 		data:data
