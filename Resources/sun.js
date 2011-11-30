@@ -61,7 +61,7 @@ var scrollView = Titanium.UI.createScrollView({
 var shadow = Ti.UI.createView({
 	backgroundImage:"images/shadow_b.png",
 	height:5,
-	width: "auto",
+	width: "100%",
 	top: 55
 });
 

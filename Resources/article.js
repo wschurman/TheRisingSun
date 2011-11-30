@@ -280,7 +280,7 @@ function loadArticle(data) {
 	});
 	
 	var bottom_spacing = Ti.UI.createView({
-		height: (isAndroid) ? 20 : 50,
+		height: (isAndroid) ? 20 : 80,
 		width: "100%",
 		top: 5
 	});
@@ -297,26 +297,25 @@ function loadArticle(data) {
 	win.add(scrollView);
 	
 	if (!isAndroid) {
-	Titanium.Admob = Ti.Admob = require('ti.admob');
-	var ad;
-	
-	var shadow = Ti.UI.createView({
-		backgroundImage:"images/shadow_u.png",
-		height:5,
-		width: "100%",
-		bottom: 49
-	});
-	
-	win.add(shadow);
-	
-	win.add(ad = Ti.Admob.createView({
-	    bottom: 0, left: 0,
-	    width: "100%", height: 50,
-	    publisherId: 'a14ed1a5ee858ea',
-	    adBackgroundColor: 'black',
-	    testing: true,
-	    gender: '',
-	    keywords: 'cornell, sun, ithaca, college, university'
-	}));
-}
+		Titanium.Admob = Ti.Admob = require('ti.admob');
+		var ad;
+		
+		var shadow = Ti.UI.createView({
+			backgroundImage:"images/shadow_u.png",
+			height:5,
+			width: "100%",
+			bottom: 49
+		});
+		
+		win.add(shadow);
+		
+		win.add(ad = Ti.Admob.createView({
+		    bottom: 0, left: 0,
+		    width: 400, height: 50,
+		    publisherId: 'a14ed1a5ee858ea',
+		    adBackgroundColor: 'black',
+		    gender: '',
+		    keywords: 'cornell, sun, ithaca, college, university'
+		}));
+	}
 }

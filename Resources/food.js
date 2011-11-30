@@ -53,6 +53,7 @@ var table = Ti.UI.createTableView();
 function viewReview(uri, name) {
 	return function() {
 		var w = Ti.UI.createWindow({
+			backgroundColor:"#fff",
 			title: name
 		});
 		var m = Titanium.Map.createView({
@@ -69,6 +70,13 @@ function viewReview(uri, name) {
 		
 		Ti.API.debug('HEIGHT: '+m.size.height);
 		
+		var shadow = Ti.UI.createView({
+			backgroundImage:"images/shadow_b.png",
+			height:5,
+			width: "100%",
+			top: "50%"
+		});
+		
 		var s = Titanium.UI.createScrollView({
 			contentWidth:"100%",
 			contentHeight:"auto",
@@ -78,9 +86,11 @@ function viewReview(uri, name) {
 			backgroundColor: "#FFFFFF",
 			showVerticalScrollIndicator:true,
 			showHorizontalScrollIndicator:false,
+			layout:"vertical"
 		});
 		
 		w.add(s);
+		w.add(shadow);
 		
 		var annotations = [];
 
@@ -94,7 +104,7 @@ function viewReview(uri, name) {
 	        		id:'article_title',
 	        		text: json.title,
 	        		font: {fontSize: 20},
-	        		top: 0,
+	        		top: 10,
 	        		height: 'auto',
 	        		width: Titanium.Platform.displayCaps.platformWidth - 20,
 	        		color: "#383838"
@@ -105,8 +115,8 @@ function viewReview(uri, name) {
 	        		id: 'article_author',
 	        		text: 'By '+json.name,
 	        		font: {fontSize: 12},
-	        		top: review_title.size.height+2,
 	        		left: 20,
+	        		top:5,
 	        		height: 'auto',
 	        		width: Titanium.Platform.displayCaps.platformWidth - 20,
 	        		color: '#666666'
@@ -117,8 +127,8 @@ function viewReview(uri, name) {
 					id:'article_content',
 					text: json.body.replace( /<\/p>/g, '\n' ).replace( /<[^>]+>/g, '' ).replace( /&nbsp;/g, ' '),
 					font: {fontSize: (isAndroid) ? 21 : 17},
-					top: review_title.size.height+20,
 					height:'auto',
+					top:5,
 					width:Titanium.Platform.displayCaps.platformWidth - 20,
 					color:"#383838"
 				});
