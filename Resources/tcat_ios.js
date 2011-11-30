@@ -83,7 +83,9 @@ submitButton = Titanium.UI.createButton({
 
 startRow.add(startLabel);
 startRow.add(startData);
-startRow.add(startCurrentLocation);
+if (!(Titanium.Geolocation.locationServicesEnabled === false)) {
+	startRow.add(startCurrentLocation);
+}
 destRow.add(destLabel);
 destRow.add(destData);
 timeRow.add(timeLabel);
@@ -205,7 +207,12 @@ tableView.addEventListener('click', function(eventObject){
 	};
 });
 
-search.addEventListener('cancel', function(){
+search.addEventListener('cancel', function() {
+	startView.animate(slideOutTop);
+});
+
+search.addEventListener('return', function() {
+	startData.text = search.value;
 	startView.animate(slideOutTop);
 });
 
@@ -358,11 +365,6 @@ function auto_complete(search_term)
 startCurrentLocation.addEventListener("click", function(e) {
 	Ti.Geolocation.preferredProvider = "gps";
 	Ti.Geolocation.purpose = "GPS demo";
-	
-	if(Ti.Platform.model == 'iPhone Simulator') {
-    	startData.text = "42.445438,-76.488844";
-    	return;
-	}
 	
 	if (Titanium.Geolocation.locationServicesEnabled === false) {
 		Titanium.UI.createAlertDialog({title:'TCAT', message:'Your device has geolocation turned off. Please enter your location manually.'}).show();

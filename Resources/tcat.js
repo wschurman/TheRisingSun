@@ -208,6 +208,30 @@ toField.addEventListener('change', function() {
 mapView.selectAnnotation(MAP_ANNOTATIONS[0]);
 
 // Add all of our built-up elements
+var searchBar = Titanium.UI.createSearchBar({
+	barColor:'#EEEEEE',
+	showCancel:true,
+	width:'auto',
+	height:-460,
+	visible:false,
+	top:10,
+	left:10,
+	hintText:'Enter starting location!'
+});
+
+var searchData = [];
+
+var searchResults = Titanium.UI.createTableView({
+	data:searchData,
+	visible:false,
+	top:80,
+	left:10,
+	height:'auto',
+	width:'auto'
+});
+
+win.add(searchBar);
+win.add(searchResults);
 win.add(fromLabel);
 win.add(fromField);
 win.add(toLabel);
@@ -216,6 +240,89 @@ win.add(departureLabel);
 win.add(departureField);
 win.add(mapView);
 win.add(submitButton);
+
+function displaySearchBar(show) {
+	searchBar.visible = show;
+	searchResults.visible = show;
+}
+
+function displaySplashScreen(show) {
+	fromLabel.visible = show;
+	fromField.visible = show;
+	toLabel.visible = show;
+	toField.visible = show;
+	departureLabel.visible = show;
+	departureField.visible = show;
+	mapView.visible = show;
+	submitButton.visible = show;
+}
+
+searchBar.addEventListener('change',
+	function() {
+		if (searchBar.value.length >= 2) {
+			var searchParam = searchBar.value;
+			
+			var searchXHR = Titanium.Network.createHTTPClient();
+			searchXHR.onload = function() {
+				if (this.status != 200) {
+					var alertDialog = Titanium.UI.createAlertDialog({
+					    title: 'Oh noes!',
+					    message: "Trouble connecting to the server. =(",
+					});
+					alertDialog.show();
+				} else {				
+				    var json = JSON.parse(this.responseText);
+					
+					searchData = [];
+	
+					for (var i = 0; i < json.possible_searches.length; i++) {
+						var possibleSearch = json.possible_searches[i];
+						var newRow = Titanium.UI.createTableViewRow({
+							height:55,
+							title:possibleSearch
+						}); 
+						newRow.addEventListener('click',
+							function() {
+								displaySearchBar(false);
+								displaySplashScreen(true);
+								fromField.value = newRow.title;
+							}
+						);
+						searchData.push(newRow);	
+					}
+					
+					searchResults.data = searchData;
+				}
+			}; 
+			var searchParams = "?search=" + searchParam
+			var searchURL = AJAX_URL + searchParams;
+			searchXHR.open("GET", searchURL);
+			searchXHR.send();		
+		}	
+	}
+);
+
+searchBar.addEventListener('return',
+	function() {
+		displaySearchBar(false);
+		displaySplashScreen(true);
+		fromField.value = searchBar.value;
+		fromField.focus();		
+	}
+);
+
+fromField.addEventListener('change',
+	function() {
+		if (searchBar.value.length == 0) {
+			displaySearchBar(true);
+			displaySplashScreen(false);
+			searchBar.value = fromField.value;
+		}
+		if (!searchBar.visible) {
+			searchBar.value = '';
+		}
+	}
+);
 
 // Add functionality
 var findRoute = function() {
