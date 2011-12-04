@@ -1,15 +1,18 @@
+/*
+ * Controller for the TCAT application on iOS
+ */
+
+var win = Titanium.UI.currentWindow;
 var isAndroid = (Titanium.Platform.name == 'android');
 
-var url = "http://tcat.elasticbeanstalk.com/main";
-
+var url = "http://132.236.96.239/TCAT_AWS/main";
 // Strings
-var FROM_LABEL = 'Starting Point';
+var FROM_LABEL = 'Start';
 var TO_LABEL = 'Destination';
-var DEPART_LABEL = 'Departure Time';
+var DEPART_LABEL = 'Time';
 var SUBMIT_TEXT = 'Find Route!';
 
 // Destinations - maybe change to Ajax call in the future
-
 var destination_texts = [
 	"Ag Quad",
 	"Airport",
@@ -26,36 +29,22 @@ var destination_texts = [
 	"Wegmans",
 	"West Campus"
 ];
-
 var destinations = [];
-
 for (var j = 0; j < destination_texts.length; j++) {
 	destinations[j] = Titanium.UI.createPickerRow({title:destination_texts[j]});
 }
 
-
-// Heights and widths
-var ELEMENT_HEIGHT = 55;
-var LABEL_WIDTH = 165;
-var TEXT_FIELD_WIDTH = 250;
-var SUBMIT_WIDTH = 450;
-
-// The entire window (not including the tab)
-var win = Titanium.UI.currentWindow;
-
-// Submit button
-var submitButton = null;
-
+//
 // Build the page
-
+//
 var array = [];
 var startRow = Titanium.UI.createTableViewRow({height:46, className:'startRow'}); 
 var destRow = Titanium.UI.createTableViewRow({height:46, className:'destRow'}); 
 var timeRow = Titanium.UI.createTableViewRow({height:46, className:'timeRow'});
 var submitRow = Titanium.UI.createTableViewRow({height:65, className:'submitRow', backgroundColor:"transparent", borderColor:"transparent", touchEnabled:false});
-var startLabel = Ti.UI.createLabel({color:'#000000', text:"Start", font:{fontSize:21, fontWeight:'bold'}, top:8, left:12, height:24, width:99});
-var destLabel = Ti.UI.createLabel({color:'#000000', text:"Destination", font:{fontSize:21, fontWeight:'bold'}, top:8, left:12, height:24, width:170});
-var timeLabel = Ti.UI.createLabel({color:'#000000', text:"Time", font:{fontSize:21, fontWeight:'bold'}, top:8, left:12, height:24, width:170});
+var startLabel = Ti.UI.createLabel({color:'#000000', text:FROM_LABEL, font:{fontSize:21, fontWeight:'bold'}, top:8, left:12, height:24, width:99});
+var destLabel = Ti.UI.createLabel({color:'#000000', text:TO_LABEL, font:{fontSize:21, fontWeight:'bold'}, top:8, left:12, height:24, width:170});
+var timeLabel = Ti.UI.createLabel({color:'#000000', text:DEPART_LABEL, font:{fontSize:21, fontWeight:'bold'}, top:8, left:12, height:24, width:170});
 var startData = Ti.UI.createLabel({color:'#3D4460', text:"", font:{fontSize:17, fontWeight:'normal'}, top:11, left:102, height:20, width:150, textAlign:'right'});
 var destData = Ti.UI.createLabel({color:'#3D4460', text:"", font:{fontSize:17, fontWeight:'normal'}, top:11, left:102, height:20, width:180, textAlign:'right'});	
 var timeData = Ti.UI.createLabel({color:'#3D4460', text:"", font:{fontSize:17, fontWeight:'normal'}, top:11, left:102, height:20, width:180, textAlign:'right'});	
@@ -71,8 +60,7 @@ var startCurrentLocation = Ti.UI.createButton({
 	height: 26,
 	className:"currBtn"
 });
-
-submitButton = Titanium.UI.createButton({
+var submitButton = Titanium.UI.createButton({
 	width:300,
 	height:55,
 	top:200,
@@ -90,29 +78,23 @@ destRow.add(destLabel);
 destRow.add(destData);
 timeRow.add(timeLabel);
 timeRow.add(timeData);
-//submitRow.add(submitButton);
 array.push(startRow);
 array.push(destRow);
 array.push(timeRow);
-//array.push(submitRow);
 
-// Getters
-var getFromField = function() { return startData; };
-var getToField = function() { return destData; };
-var getTimeField = function() { return timeData; };
-var getSubmitButton = function() { return submitButton; };
+var tableView = Titanium.UI.createTableView({
+	data:array,
+	style:Titanium.UI.iPhone.TableViewStyle.GROUPED,
+	scrollable: false
+});
 
-var setSubmitButtonAction = function(event, action) {
-	submitButton.addEventListener(event, action);
-};
-
-var tableView = Titanium.UI.createTableView({data:array, style:Titanium.UI.iPhone.TableViewStyle.GROUPED, scrollable: false});
-
+/* Start view, search bar and autocomplete table 
+ * Slides down when start row is clicked
+ */
 var startView = Ti.UI.createView({
 	height:400,
 	top:-460
 });
-
 var search = Titanium.UI.createSearchBar({
    height:43,
    showCancel:true,
@@ -120,8 +102,6 @@ var search = Titanium.UI.createSearchBar({
    top:0,
    returnKeyType:Titanium.UI.RETURNKEY_NEXT,
 });
- 
-//AUTOCOMPLETE TABLE
 var table_data = [];
 var autocomplete_table = Titanium.UI.createTableView({
    search: search,
@@ -130,60 +110,84 @@ var autocomplete_table = Titanium.UI.createTableView({
 });
 startView.add(autocomplete_table);
 
-
+/* Dest picker view and time picker view
+ * Used for selecting the destination field from a picker
+ */
 var destPickerView = Titanium.UI.createView({height:260,bottom:-260});
-var timePickerView = Titanium.UI.createView({height:260,bottom:-260});
 
 var destPicker = Titanium.UI.createPicker({
 	top:43,
 	keyboardType:Titanium.UI.KEYBOARD_DEFAULT,
-	returnKeyType:Titanium.UI.RETURNKEY_ROUTE
+	returnKeyType:Titanium.UI.RETURNKEY_ROUTE,
+	selectionIndicator: true
 });
-var destDone =  Titanium.UI.createButton({
-  title:'Done',
-  style: Titanium.UI.iPhone.SystemButtonStyle.DONE
+
+var destDone = Titanium.UI.createButton({
+	title : 'Done',
+	style : Titanium.UI.iPhone.SystemButtonStyle.DONE
 });
-var destSpacer =  Titanium.UI.createButton({
-  systemButton: Titanium.UI.iPhone.SystemButton.FLEXIBLE_SPACE
+
+var destSpacer = Titanium.UI.createButton({
+	systemButton : Titanium.UI.iPhone.SystemButton.FLEXIBLE_SPACE
 });
-var destToolbar =  Titanium.UI.createToolbar({
-  height: 43,
-  top: 0,
-  items:[destSpacer,destDone]
+
+var destToolbar = Titanium.UI.createToolbar({
+	height : 43,
+	top : 0,
+	items : [destSpacer, destDone]
 });
+
 destPicker.add(destinations);
-destPicker.selectionIndicator=true;
 destPickerView.add(destToolbar);
 destPickerView.add(destPicker);
 
+
+
+/* Time picker view
+ * used for selecting the time field from a picker
+ */
+var timePickerView = Titanium.UI.createView({height:260,bottom:-260});
 var timePicker = Titanium.UI.createPicker({
 	top:43,
 	keyboardType:Titanium.UI.KEYBOARD_DEFAULT,
 	returnKeyType:Titanium.UI.RETURNKEY_ROUTE,
 	type:Titanium.UI.PICKER_TYPE_TIME,
+	selectionIndicator: true
 });
-var timeDone =  Titanium.UI.createButton({
-  title:'Done',
-  style: Titanium.UI.iPhone.SystemButtonStyle.DONE
+
+var timeDone = Titanium.UI.createButton({
+	title : 'Done',
+	style : Titanium.UI.iPhone.SystemButtonStyle.DONE
 });
-var timeSpacer =  Titanium.UI.createButton({
-  systemButton: Titanium.UI.iPhone.SystemButton.FLEXIBLE_SPACE
+
+var timeSpacer = Titanium.UI.createButton({
+	systemButton : Titanium.UI.iPhone.SystemButton.FLEXIBLE_SPACE
 });
-var timeToolbar =  Titanium.UI.createToolbar({
-  height: 43,
-  top: 0,
-  items:[timeSpacer,timeDone]
+
+var timeToolbar = Titanium.UI.createToolbar({
+	height : 43,
+	top : 0,
+	items : [timeSpacer, timeDone]
 });
+
 timePicker.selectionIndicator=true;
 timePickerView.add(timeToolbar);
 timePickerView.add(timePicker);
 
+
+//
+// Animations for the pickers
+//
 var slideIn =  Titanium.UI.createAnimation({bottom:-40});
 var slideOut =  Titanium.UI.createAnimation({bottom:-265});
 var slideInTop =  Titanium.UI.createAnimation({top:0});
 var slideOutTop =  Titanium.UI.createAnimation({top:-460});
 
+//
 // event functions
+//
+// click events for the main table
+//
 tableView.addEventListener('click', function(eventObject){
 	if (eventObject.rowData.className == "timeRow")
 	{
@@ -207,15 +211,20 @@ tableView.addEventListener('click', function(eventObject){
 	};
 });
 
+//
+// click events for search bar and keyboard to close search window
+//
 search.addEventListener('cancel', function() {
 	startView.animate(slideOutTop);
 });
-
 search.addEventListener('return', function() {
 	startData.text = search.value;
 	startView.animate(slideOutTop);
 });
 
+//
+// submit the time picker
+//
 timePicker.addEventListener('change',function(e)
 {
 	var d = new Date(e.value);
@@ -224,23 +233,6 @@ timePicker.addEventListener('change',function(e)
 	tableView.setData(array);
 });
 
-destPicker.addEventListener('change',function(e)
-{
-	destData.text = destPicker.getSelectedRow(0).title;
-	tableView.setData(array);
-});
-
-/*start.addEventListener('focus',function() {
-	destPickerView.animate(slideOut);
-	timePickerView.animate(slideOut);
-});*/
-
-
-destDone.addEventListener('click', function(event) {
-  	destData.text = destPicker.getSelectedRow(0).title;
-	tableView.setData(array);
-  	destPickerView.animate(slideOut);
-});
 timeDone.addEventListener('click', function(event) {
   	var d = new Date(timePicker.value);
   	timeRaw = timePicker.value;
@@ -249,17 +241,35 @@ timeDone.addEventListener('click', function(event) {
   	timePickerView.animate(slideOut);
 });
 
+//
+// submit the destination picker
+//
+destPicker.addEventListener('change',function(e)
+{
+	destData.text = destPicker.getSelectedRow(0).title;
+	tableView.setData(array);
+});
+
+destDone.addEventListener('click', function(event) {
+  	destData.text = destPicker.getSelectedRow(0).title;
+	tableView.setData(array);
+  	destPickerView.animate(slideOut);
+});
+
+
+//
 // Add all of our built-up elements
+//
 win.add(tableView);
 win.add(submitButton);
 win.add(startView);
 win.add(destPickerView);
 win.add(timePickerView);
 
-// Add functionality
+//
+// XHR Calls and AJAX
+//
 var findRoute = function() {
-	// Make Ajax call to grab data; for now, we just have dummy JSON
-	// var data = $.ajax(startingPoint : userStartingPoint, destination : userDestination)...
 	var xhr = Ti.Network.createHTTPClient({
 	    onload: function() {
 	    	if (this.status != 200) {
@@ -296,8 +306,7 @@ function openMap(data) {
 	});
 	Titanium.UI.currentTab.open(w,{animated:true});
 }
-
-setSubmitButtonAction('click', findRoute);
+submitButton.addEventListener('click', findRoute);
 
 //
 // SEARCH BAR EVENTS
@@ -338,7 +347,6 @@ function auto_complete(search_term)
 				table_data = [];
 	            for (var i = 0; i < list.length; i++)
 	            {
-	                //Ti.API.info('row data - ' + data[i].value);
 	                var row = Ti.UI.createTableViewRow({
 	                    height: 40,
 	                    title: list[i].replace(/^\s+|\s+$/g,""),
@@ -362,6 +370,11 @@ function auto_complete(search_term)
     }
 }
 
+
+
+//
+// GPS Current Location functions
+//
 startCurrentLocation.addEventListener("click", function(e) {
 	Ti.Geolocation.preferredProvider = "gps";
 	Ti.Geolocation.purpose = "GPS demo";
@@ -407,4 +420,3 @@ startCurrentLocation.addEventListener("click", function(e) {
 	
 	return false;
 });
-//hello

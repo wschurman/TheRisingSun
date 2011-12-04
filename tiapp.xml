@@ -8,9 +8,9 @@
         <target device="blackberry">false</target>
     </deployment-targets>
     <id>com.thesun.therisingsun</id>
-    <name>TheRisingSun</name>
-    <version>0.1</version>
-    <publisher>The Cornell Sun</publisher>
+    <name>The Cornell Daily Sun</name>
+    <version>0.2</version>
+    <publisher>The Cornell Daily Sun</publisher>
     <url>http://cornellsun.com/</url>
     <description>not specified</description>
     <copyright>2011 by The Cornell Sun</copyright>
@@ -34,6 +34,6 @@
     </iphone>
     <android xmlns:android="http://schemas.android.com/apk/res/android"/>
     <modules>
-    	<module version="1.0" platform="iphone">ti.admob</module>
-  	</modules>
+        <module platform="iphone" version="1.0">ti.admob</module>
+    </modules>
 </ti:app>

@@ -2,8 +2,8 @@
 var AJAX_URL = "http://tcat.elasticbeanstalk.com/main";
 
 // Styling
-FONT_FAMILY = 'Droid Sans';
-FONT_SIZE = 20;
+var FONT_FAMILY = 'Droid Sans';
+var FONT_SIZE = 20;
 
 // Strings
 var FROM_LABEL = 'Starting Point';
@@ -12,21 +12,26 @@ var DEPART_LABEL = 'Departure Time';
 var SUBMIT_TEXT = 'Find Route!';
 
 // Destinations - maybe change to Ajax call in the future
+var destination_texts = [
+	"Ag Quad",
+	"Airport",
+	"Arts Quad",
+	"Central Campus",
+	"Collegetown",
+	"Downtown",
+	"Engineering Quad",
+	"Hasbrouk Apartments",
+	"Ithaca College",
+	"North Campus",
+	"Pyramid Mall",
+	"The Commons",
+	"Wegmans",
+	"West Campus"
+];
 var destinations = [];
-destinations[0]=Titanium.UI.createPickerRow({title:'Ag Quad'});
-destinations[1]=Titanium.UI.createPickerRow({title:'Airport'});
-destinations[2]=Titanium.UI.createPickerRow({title:'Arts Quad'});
-destinations[3]=Titanium.UI.createPickerRow({title:'Central Campus'});
-destinations[4]=Titanium.UI.createPickerRow({title:'Collegetown'});
-destinations[5]=Titanium.UI.createPickerRow({title:'Downtown'});
-destinations[6]=Titanium.UI.createPickerRow({title:'Engineering Quad'});
-destinations[7]=Titanium.UI.createPickerRow({title:'Hasbrouck Apartments'});
-destinations[8]=Titanium.UI.createPickerRow({title:'Ithaca College'});
-destinations[9]=Titanium.UI.createPickerRow({title:'North Campus'});
-destinations[10]=Titanium.UI.createPickerRow({title:'Pyramid Mall'});
-destinations[11]=Titanium.UI.createPickerRow({title:'The Commons'});
-destinations[12]=Titanium.UI.createPickerRow({title:'Wegmans'});
-destinations[13]=Titanium.UI.createPickerRow({title:'West Campus'});
+for (var j = 0; j < destination_texts.length; j++) {
+	destinations[j] = Titanium.UI.createPickerRow({title:destination_texts[j]});
+}
 
 var annotationIndices = {
 	'Agricultural Quad' : 0,
@@ -73,8 +78,8 @@ var TEXT_FIELD_WIDTH = 250;
 var SUBMIT_WIDTH = 450;
 
 // Positioning of elements from the top
-DEPARTURE_LABEL_TOP = 155;
-DEPARTURE_FIELD_TOP = 205;
+var DEPARTURE_LABEL_TOP = 155;
+var DEPARTURE_FIELD_TOP = 205;
 
 // The entire window (not including the tab)
 var win = Titanium.UI.currentWindow;

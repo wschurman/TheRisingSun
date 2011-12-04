@@ -1,3 +1,8 @@
+/*
+ * TheRisingSun
+ * 
+ */
+
 Titanium.UI.setBackgroundColor('#FFF');
 var isAndroid = (Titanium.Platform.name == 'android');
 
@@ -56,7 +61,6 @@ tabGroup.addTab(tab3);
 
 tabGroup.addEventListener('open',function()
 {
-	// set background color back to white after tab group transition
 	Titanium.UI.setBackgroundColor('#fff');
 });
 

@@ -1,3 +1,5 @@
+var ADMOB_PUBLISHER_ID = 'a14ed1a5ee858ea';
+
 var win = Titanium.UI.currentWindow;
 var isAndroid = (Titanium.Platform.name == 'android');
 
@@ -22,6 +24,31 @@ var xhr = Ti.Network.createHTTPClient({
 xhr.open("GET", win.data_url);
 xhr.send();
 
+var ad;
+var ad_shadow;
+if (!isAndroid) {
+	Titanium.Admob = Ti.Admob = require('ti.admob');
+
+	ad_shadow = Ti.UI.createView({
+		backgroundImage:"images/shadow_u.png",
+		height:5,
+		width: "100%",
+		bottom: 49
+	});
+	
+	ad = Ti.Admob.createView({
+	    bottom: 0, left: 0,
+	    width: 400, height: 50,
+	    publisherId: ADMOB_PUBLISHER_ID,
+	    adBackgroundColor: 'black',
+	    gender: '',
+	    keywords: 'cornell, sun, ithaca, college, university'
+	});
+}
+
+/* Load an image from the current article into the data array
+ * Params: data - json current article data
+ */
 function loadImageArticle(data) {
 	var xhr = Ti.Network.createHTTPClient({
 		onload: function() {
@@ -45,6 +72,9 @@ function loadImageArticle(data) {
 	xhr.send();
 }
 
+/* Loads the main article from the initial xhr request
+ * Params: data - the data returned from the original xhr call with or without image data
+ */
 function loadArticle(data) {
 	var hasImage = data.field_images[0].nid != null && !isAndroid;
 	var date = new Date(parseInt(data.created)*1000);
@@ -96,13 +126,16 @@ function loadArticle(data) {
 	}
 	
 	function viewImage() {
-		var w = Ti.UI.createWindow();
+		var w = Ti.UI.createWindow({
+			backgroundColor: "#000",
+		});
 		var s = Ti.UI.createScrollView({
 			contentWidth:"100%",
 			contentHeight:"auto",
 			top:0,
 			width: "100%",
 			height: "100%",
+			backgroundColor: "#000",
 			showVerticalScrollIndicator:true,
 			showHorizontalScrollIndicator:false,
 		});
@@ -112,7 +145,7 @@ function loadArticle(data) {
 			img = Ti.UI.createImageView({
 				id: 'photo',
 				backgroundImage: 'http://cornellsun.com/'+data.image_uri, // For android
-				top: 0,
+				top: 10,
 				width: '100%',
 				height: 'auto',
 				left: 0
@@ -121,7 +154,7 @@ function loadArticle(data) {
 			img = Ti.UI.createImageView({
 				id: 'photo',
 				image: 'http://cornellsun.com/'+data.image_uri,
-				top: 0,
+				top: 10,
 				width: '100%',
 				height: 'auto',
 				left: 0
@@ -134,7 +167,7 @@ function loadArticle(data) {
 			id: 'photo_credit',
 			text: 'Photo by '+data.image_credit,
 			font: {fontSize: 13},
-			color: '#9B9B9B',
+			color: '#eee',
 			top: img.size.height+5,
 			left: 5,
 			width: 'auto',
@@ -144,7 +177,7 @@ function loadArticle(data) {
 			id: 'photo_caption',
 			text: data.image_caption,
 			font: {fontSize: 13},
-			color: '#000000',
+			color: '#dedede',
 			top: credit.top+30,
 			left: 5,
 			//width: img.size.width,
@@ -259,7 +292,7 @@ function loadArticle(data) {
 	
 	var body_text = Titanium.UI.createLabel({
 		id:'article_content',
-		text: data.body.replace( /<\/p>/g, '\n' ).replace( /<[^>]+>/g, '' ).replace( /&nbsp;/g, ' '),
+		text: data.body.replace( /<\/p>/g, '\n\n' ).replace( /<[^>]+>/g, '' ).replace( /&nbsp;/g, ' '),
 		font: {fontSize: (isAndroid) ? 21 : 17},
 		top: 5,
 		height:'auto',
@@ -297,25 +330,7 @@ function loadArticle(data) {
 	win.add(scrollView);
 	
 	if (!isAndroid) {
-		Titanium.Admob = Ti.Admob = require('ti.admob');
-		var ad;
-		
-		var shadow = Ti.UI.createView({
-			backgroundImage:"images/shadow_u.png",
-			height:5,
-			width: "100%",
-			bottom: 49
-		});
-		
-		win.add(shadow);
-		
-		win.add(ad = Ti.Admob.createView({
-		    bottom: 0, left: 0,
-		    width: 400, height: 50,
-		    publisherId: 'a14ed1a5ee858ea',
-		    adBackgroundColor: 'black',
-		    gender: '',
-		    keywords: 'cornell, sun, ithaca, college, university'
-		}));
+		win.add(ad_shadow);
+		win.add(ad);
 	}
 }
