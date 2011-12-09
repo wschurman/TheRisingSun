@@ -32,7 +32,7 @@ if (isAndroid) {
 	activity.onCreateOptionsMenu = function(e) {
 	    var menu = e.menu;
 	    var menuItem = menu.add({ title: "Refresh" });
-	    menuItem.setIcon("images/tabs/KS_nav_mashup.png");
+	    menuItem.setIcon("images/refresh.png");
 	    menuItem.addEventListener("click", function(e) {
 	        refreshContent(currCat);
 	    });

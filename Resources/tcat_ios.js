@@ -5,7 +5,7 @@
 var win = Titanium.UI.currentWindow;
 var isAndroid = (Titanium.Platform.name == 'android');
 
-var url = "http://132.236.96.239/TCAT_AWS/main";
+var url = "http://192.168.1.149/TCAT_AWS/main";
 // Strings
 var FROM_LABEL = 'Start';
 var TO_LABEL = 'Destination';
