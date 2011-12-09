@@ -9,7 +9,7 @@ var FONT_SIZE = 20;
 var FROM_LABEL = 'Starting Point';
 var TO_LABEL = 'Destination';
 var DEPART_LABEL = 'Departure Time';
-var SUBMIT_TEXT = 'Find Route!';
+var SUBMIT_TEXT = 'Find Route';
 
 // Destinations - maybe change to Ajax call in the future
 var destination_texts = [

@@ -1,4 +1,5 @@
 var ADMOB_PUBLISHER_ID = 'a14ed1a5ee858ea';
+var READ_MORE_TEXT = "Full Web Article";
 
 var win = Titanium.UI.currentWindow;
 var isAndroid = (Titanium.Platform.name == 'android');
@@ -302,7 +303,7 @@ function loadArticle(data) {
 	
 	var read_more = Ti.UI.createButton({
 		id:"read_more",
-		title: "Read More",
+		title: READ_MORE_TEXT,
 		width: "100%",
 		height: 60,
 		top: 5

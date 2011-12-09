@@ -10,7 +10,7 @@ var url = "http://132.236.96.239/TCAT_AWS/main";
 var FROM_LABEL = 'Start';
 var TO_LABEL = 'Destination';
 var DEPART_LABEL = 'Time';
-var SUBMIT_TEXT = 'Find Route!';
+var SUBMIT_TEXT = 'Find Route';
 
 // Destinations - maybe change to Ajax call in the future
 var destination_texts = [
@@ -411,8 +411,6 @@ startCurrentLocation.addEventListener("click", function(e) {
 	
 			var longitude = e.coords.longitude;
 			var latitude = e.coords.latitude;
-	
-			Titanium.API.info('geo - current location: ' + new Date(timestamp) + ' long ' + longitude + ' lat ' + latitude + ' accuracy ' + accuracy);
 			
 			startData.text = latitude+","+longitude;
 		});
