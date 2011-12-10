@@ -297,7 +297,7 @@ function loadArticle(data) {
 	
 	var body_text = Titanium.UI.createLabel({
 		id:'article_content',
-		text: data.body.replace( /<p>/g, '\t\t' ).replace( /<\/p>/g, '\n' ).replace( /<br\s*\/?>/g, '\n\n' ).replace( /<[^>]+>/g, '' ).replace( /&nbsp;/g, ' ').replace( /&amp;/g, '&'),
+		text: data.body.replace( /<p>/g, '\t\t' ).replace( /<\/p>|<br\s*\/?>/g, '\n' ).replace( /<[^>]+>/g, '' ).replace( /&nbsp;/g, ' ').replace( /&amp;/g, '&'),
 		font: {fontSize: (isAndroid) ? 21 : 17},
 		top: 5,
 		height:'auto',
