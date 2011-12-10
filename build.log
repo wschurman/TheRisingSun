@@ -1,20 +1,7 @@
 Logfile initialized
 [INFO] logfile = /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build.log
-[DEBUG] /Library/Application Support/Titanium/mobilesdk/osx/1.7.5/android/builder.py simulator The Cornell Daily Sun /Users/williamschurman/programming/android-sdk-mac_x86 /Users/williamschurman/programming/Titanium/The Cornell Daily Sun com.thesun.therisingsun 4 WVGA854 
-[INFO] Building The Cornell Daily Sun for Android ... one moment
+[DEBUG] /Library/Application Support/Titanium/mobilesdk/osx/1.7.5/android/builder.py distribute The Cornell Daily Sun /Users/williamschurman/programming/android-sdk-mac_x86 /Users/williamschurman/programming/Titanium/The Cornell Daily Sun com.thesun.therisingsun /Users/williamschurman/keystores/android.keystore jEbpuAXU3KwA9tbu8Bn cornellsun /Users/williamschurman/Desktop/The Cornell Daily Sun Raw Resources 4
 [INFO] Titanium SDK version: 1.7.5 (11/02/11 17:00 ab20af7)
-[DEBUG] Waiting for device to be ready ...
-[TRACE] adb devices returned 1 devices/emulators
-[TRACE] adb devices returned 1 devices/emulators
-[TRACE] adb devices returned 1 devices/emulators
-[TRACE] adb devices returned 1 devices/emulators
-[TRACE] adb devices returned 1 devices/emulators
-[TRACE] adb devices returned 1 devices/emulators
-[DEBUG] Device connected... (waited 25 seconds)
-[DEBUG] waited 25.169130 seconds on emulator to get ready
-[INFO] Waiting for the Android Emulator to become available
-[DEBUG] com.thesun.therisingsun installed? True
-[INFO] Fastdev server running, deploying in Fastdev mode
 [INFO] Copying project resources..
 [INFO] Detected tiapp.xml change (or assets deleted), forcing full re-build...
 [TRACE] COPYING CREATED FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/android/appicon.png => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/bin/assets/Resources/appicon.png
@@ -56,15 +43,12 @@ Logfile initialized
 [TRACE] Generating Java Classes
 [DEBUG] Processing Android resource drawables
 [TRACE] COPYING FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/android/images/res-hdpi/bus.png => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/res/drawable-hdpi/bus_be084cae2b.png
-[TRACE] COPYING FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/android/images/res-hdpi/default.png => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/res/drawable-hdpi/default_d44e27d97b.png
 [TRACE] COPYING FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/android/images/res-hdpi/dining.png => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/res/drawable-hdpi/dining_0a4d076dca.png
 [TRACE] COPYING FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/android/images/res-hdpi/news.png => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/res/drawable-hdpi/news_a06aba5a85.png
 [TRACE] COPYING FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/android/images/res-ldpi/bus.png => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/res/drawable-ldpi/bus_be084cae2b.png
-[TRACE] COPYING FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/android/images/res-ldpi/default.png => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/res/drawable-ldpi/default_d44e27d97b.png
 [TRACE] COPYING FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/android/images/res-ldpi/dining.png => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/res/drawable-ldpi/dining_0a4d076dca.png
 [TRACE] COPYING FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/android/images/res-ldpi/news.png => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/res/drawable-ldpi/news_a06aba5a85.png
 [TRACE] COPYING FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/android/images/res-mdpi/bus.png => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/res/drawable-mdpi/bus_be084cae2b.png
-[TRACE] COPYING FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/android/images/res-mdpi/default.png => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/res/drawable-mdpi/default_d44e27d97b.png
 [TRACE] COPYING FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/android/images/res-mdpi/dining.png => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/res/drawable-mdpi/dining_0a4d076dca.png
 [TRACE] COPYING FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/android/images/res-mdpi/news.png => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/res/drawable-mdpi/news_a06aba5a85.png
 [DEBUG] copying app icon: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/bin/assets/Resources/appicon.png
@@ -82,10 +66,13 @@ Logfile initialized
 [DEBUG] adding /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/gen/com/thesun/therisingsun/TheCornellDailySunAppInfo.java to javac build list
 [DEBUG] adding /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/gen/com/thesun/therisingsun/TheCornellDailySunApplication.java to javac build list
 [DEBUG] Building Java Sources: "/Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/gen/com/thesun/therisingsun/R.java" "/Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/gen/com/thesun/therisingsun/TheCornellDailySunActivity.java" "/Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/gen/com/thesun/therisingsun/TheCornellDailySunAppInfo.java" "/Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/gen/com/thesun/therisingsun/TheCornellDailySunApplication.java"
-[INFO] Waiting for SDCard to become available..
 [INFO] Compiling Android Resources... This could take some time
 [DEBUG] Android classes.dex built
 [DEBUG] creating unsigned apk: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/bin/app-unsigned.apk
+[DEBUG] from resource zip => assets/Resources/images/tabs/KS_nav_mashup.png
+[DEBUG] from resource zip => assets/Resources/images/tabs/bus.png
+[DEBUG] from resource zip => assets/Resources/images/tabs/dining.png
+[DEBUG] from resource zip => assets/Resources/images/tabs/news.png
 [DEBUG] from resource zip => assets/Resources/images/1_stars.png
 [DEBUG] from resource zip => assets/Resources/images/2_stars.png
 [DEBUG] from resource zip => assets/Resources/images/3_stars.png
@@ -106,58 +93,26 @@ Logfile initialized
 [DEBUG] from resource zip => assets/Resources/images/star.png
 [DEBUG] from resource zip => assets/Resources/images/tasks_off.png
 [DEBUG] from resource zip => assets/Resources/images/tasks_on.png
-[DEBUG] from resource zip => assets/Resources/app.js
 [DEBUG] from resource zip => assets/Resources/appicon.png
-[DEBUG] from resource zip => assets/Resources/article.js
-[DEBUG] from resource zip => assets/Resources/comments.js
 [DEBUG] from resource zip => assets/Resources/default.png
-[DEBUG] from resource zip => assets/Resources/food.js
-[DEBUG] from resource zip => assets/Resources/mapRoute.js
-[DEBUG] from resource zip => assets/Resources/mapRoute_ios.js
-[DEBUG] from resource zip => assets/Resources/restaurant.js
-[DEBUG] from resource zip => assets/Resources/restaurantReview.js
-[DEBUG] from resource zip => assets/Resources/restaurantURL.js
-[DEBUG] from resource zip => assets/Resources/sun.js
-[DEBUG] from resource zip => assets/Resources/tcat.js
-[DEBUG] from resource zip => assets/Resources/tcat_ios.js
-[DEBUG] from resource zip => assets/Resources/textRoute.js
-[DEBUG] from resource zip => assets/Resources/textRoute_ios.js
 [DEBUG] from resource zip => assets/tiapp.xml
 [DEBUG] from resource zip => res/drawable/appicon.png
 [DEBUG] from resource zip => res/drawable/background.png
-[DEBUG] from resource zip => res/drawable/facebook_icon.png
-[DEBUG] from resource zip => res/drawable/facebook_login.png
-[DEBUG] from resource zip => res/drawable/facebook_login_down.png
-[DEBUG] from resource zip => res/drawable/facebook_login_wide.png
-[DEBUG] from resource zip => res/drawable/facebook_login_wide_down.png
-[DEBUG] from resource zip => res/drawable/facebook_logout.png
-[DEBUG] from resource zip => res/drawable/facebook_logout_down.png
 [DEBUG] from resource zip => res/layout/titanium_tabgroup.xml
 [DEBUG] from resource zip => AndroidManifest.xml
 [DEBUG] from resource zip => resources.arsc
 [DEBUG] from resource zip => res/drawable-hdpi/background.png
 [DEBUG] from resource zip => res/drawable-hdpi/bus_be084cae2b.png
-[DEBUG] from resource zip => res/drawable-hdpi/default_d44e27d97b.png
 [DEBUG] from resource zip => res/drawable-hdpi/dining_0a4d076dca.png
-[DEBUG] from resource zip => res/drawable-hdpi/facebook_icon.png
 [DEBUG] from resource zip => res/drawable-hdpi/news_a06aba5a85.png
 [DEBUG] from resource zip => res/drawable-ldpi/background.png
 [DEBUG] from resource zip => res/drawable-ldpi/bus_be084cae2b.png
-[DEBUG] from resource zip => res/drawable-ldpi/default_d44e27d97b.png
 [DEBUG] from resource zip => res/drawable-ldpi/dining_0a4d076dca.png
-[DEBUG] from resource zip => res/drawable-ldpi/facebook_icon.png
 [DEBUG] from resource zip => res/drawable-ldpi/news_a06aba5a85.png
 [DEBUG] from resource zip => res/drawable-mdpi/background.png
 [DEBUG] from resource zip => res/drawable-mdpi/bus_be084cae2b.png
-[DEBUG] from resource zip => res/drawable-mdpi/default_d44e27d97b.png
 [DEBUG] from resource zip => res/drawable-mdpi/dining_0a4d076dca.png
 [DEBUG] from resource zip => res/drawable-mdpi/news_a06aba5a85.png
-[DEBUG] from JAR /Library/Application Support/Titanium/mobilesdk/osx/1.7.5/android/modules/titanium-ui.jar => ti/modules/titanium/ui/widget/webview/binding.js
-[DEBUG] from JAR /Library/Application Support/Titanium/mobilesdk/osx/1.7.5/android/modules/titanium-ui.jar => ti/modules/titanium/ui/widget/webview/binding.min.js
-[DEBUG] from JAR /Library/Application Support/Titanium/mobilesdk/osx/1.7.5/android/modules/titanium-ui.jar => ti/modules/titanium/ui/widget/webview/json2.js
-[DEBUG] from JAR /Library/Application Support/Titanium/mobilesdk/osx/1.7.5/android/smalljs.jar => org/mozilla/javascript/resources/Messages.properties
-[DEBUG] from JAR /Library/Application Support/Titanium/mobilesdk/osx/1.7.5/android/smalljs.jar => org/mozilla/javascript/resources/Messages_fr.properties
-[DEBUG] from JAR /Library/Application Support/Titanium/mobilesdk/osx/1.7.5/android/modules/titanium-yahoo.jar => ti/modules/titanium/yahoo/yahoo.js
 [DEBUG] from JAR /Library/Application Support/Titanium/mobilesdk/osx/1.7.5/android/titanium.jar => org/apache/Commons-NOTICE.txt
 [DEBUG] from JAR /Library/Application Support/Titanium/mobilesdk/osx/1.7.5/android/titanium.jar => org/apache/HttpComponents-NOTICE.txt
 [DEBUG] from JAR /Library/Application Support/Titanium/mobilesdk/osx/1.7.5/android/titanium.jar => org/apache/mime4j-NOTICE.txt
@@ -174,14 +129,8 @@ Logfile initialized
 [DEBUG] from JAR /Library/Application Support/Titanium/mobilesdk/osx/1.7.5/android/titanium.jar => org/appcelerator/titanium/res/drawable/btn_picker_selected.9.png
 [DEBUG] from JAR /Library/Application Support/Titanium/mobilesdk/osx/1.7.5/android/titanium.jar => org/appcelerator/titanium/res/drawable/default_icon.png
 [DEBUG] from JAR /Library/Application Support/Titanium/mobilesdk/osx/1.7.5/android/titanium.jar => org/appcelerator/titanium/res/drawable/photoDefault.png
-[DEBUG] from JAR /Library/Application Support/Titanium/mobilesdk/osx/1.7.5/android/modules/titanium-facebook.jar => ti/modules/titanium/facebook/LICENSE
-[DEBUG] Waiting for device to be ready ...
-[TRACE] adb devices returned 1 devices/emulators
-[DEBUG] Device connected... (waited 0 seconds)
-[DEBUG] waited 0.027296 seconds on emulator to get ready
-[INFO] Installing application on device
-[INFO] Launching application ... The Cornell Daily Sun
-[TRACE] Launch output: Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.thesun.therisingsun/.TheCornellDailySunActivity }
-
-[INFO] Deployed The Cornell Daily Sun ... Application should be running.
-[INFO] Android Emulator has exited
+[DEBUG] from JAR /Library/Application Support/Titanium/mobilesdk/osx/1.7.5/android/smalljs.jar => org/mozilla/javascript/resources/Messages.properties
+[DEBUG] from JAR /Library/Application Support/Titanium/mobilesdk/osx/1.7.5/android/smalljs.jar => org/mozilla/javascript/resources/Messages_fr.properties
+[DEBUG] from JAR /Library/Application Support/Titanium/mobilesdk/osx/1.7.5/android/modules/titanium-ui.jar => ti/modules/titanium/ui/widget/webview/binding.js
+[DEBUG] from JAR /Library/Application Support/Titanium/mobilesdk/osx/1.7.5/android/modules/titanium-ui.jar => ti/modules/titanium/ui/widget/webview/binding.min.js
+[DEBUG] from JAR /Library/Application Support/Titanium/mobilesdk/osx/1.7.5/android/modules/titanium-ui.jar => ti/modules/titanium/ui/widget/webview/json2.js

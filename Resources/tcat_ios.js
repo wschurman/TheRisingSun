@@ -1,11 +1,11 @@
 /*
  * Controller for the TCAT application on iOS
  */
+var url = "http://192.168.1.149/TCAT_AWS/main";
 
 var win = Titanium.UI.currentWindow;
 var isAndroid = (Titanium.Platform.name == 'android');
 
-var url = "http://192.168.1.149/TCAT_AWS/main";
 // Strings
 var FROM_LABEL = 'Start';
 var TO_LABEL = 'Destination';

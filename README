@@ -1,4 +1,15 @@
-This is a README. Therefore you should README. I README and thought that what I had to say was worth reading.
+To set up this Titanium project for development and deployment, see the following instructions:
+
+Change the tcat routing url in "tcat_ios.js" and "tcat.js" to the endpoint where you hosted the .war
+
+For the Google Maps API Key (development and production):
+http://developer.appcelerator.com/doc/mobile/android-maps (development)
+
+http://wiki.appcelerator.org/display/guides/Packaging+for+the+Android+Market (production)
+http://wiki.appcelerator.org/display/guides/Native+Maps+and+Annotations#NativeMapsandAnnotations-GoogleMapsAPIKeyforAndroid (production)
+
+For packaging and distribution information:
+http://wiki.appcelerator.org/display/guides/Preparing+for+Distribution
 
 ----------------------------------
 Stuff our legal folk make us say:

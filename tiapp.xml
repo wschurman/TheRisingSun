@@ -23,9 +23,9 @@
     <navbar-hidden>false</navbar-hidden>
     <analytics>true</analytics>
     <guid>08cc2b66-469f-4f2d-9959-d1830048622d</guid>
-    <property name="ti.android.google.map.api.key">0nHGiLhyEI3bZuqeADF6puI2eRTbihyI3nWgz3w</property>
+    <!-- <property name="ti.android.google.map.api.key">0nHGiLhyEI3bZuqeADF6puI2eRTbihyI3nWgz3w</property> -->
     <!-- Use the property below for wschurman's cert, will need to generate new one in the future -->
-    <!-- <property name="ti.android.google.map.api.key">0r72MaMeYRwDKjyXu5iFsgo_UeLv5KHw7QRD3sA</property> -->
+    <property name="ti.android.google.map.api.key">0r72MaMeYRwDKjyXu5iFsgo_UeLv5KHw7QRD3sA</property>
     <iphone>
         <orientations device="iphone">
             <orientation>Ti.UI.PORTRAIT</orientation>
