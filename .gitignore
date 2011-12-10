@@ -5,3 +5,6 @@ tmp
 build/*
 *.lock
 *.log
+.settings/com.appcelerator.titanium.mobile.prefs
+
+manifest

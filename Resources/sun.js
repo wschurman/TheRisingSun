@@ -1,15 +1,16 @@
+/*
+ * Controller for the news app
+ */
+
 /* Configurable Params */
 var baseTitle = "The Cornell Daily Sun";
 var baseTitleShort = "Sun";
 
 var win = Titanium.UI.currentWindow;
+var isAndroid = (Titanium.Platform.name == 'android');
+
 win.title = baseTitle;
 
-win.orientationModes = [
-    Titanium.UI.PORTRAIT
-];
-
-var isAndroid = (Titanium.Platform.name == 'android');
 var tableData = [];
 var json, articles, article, i, j, row, view, titleLabel,
 	contentLabel, h, contentTopPosition, c, hasImage, t_view, t_label, currLeftOffset;
@@ -24,14 +25,14 @@ var catRendered = false;
 var currCat = 0;
 var currCatLabel = null;
 
-/* Android menu */
 
+/* Android refresh menu item */
 if (isAndroid) {
 	var activity = Ti.Android.currentActivity;
 	activity.onCreateOptionsMenu = function(e) {
 	    var menu = e.menu;
 	    var menuItem = menu.add({ title: "Refresh" });
-	    menuItem.setIcon("images/tabs/KS_nav_mashup.png");
+	    menuItem.setIcon("images/refresh.png");
 	    menuItem.addEventListener("click", function(e) {
 	        refreshContent(currCat);
 	    });
@@ -78,7 +79,6 @@ var r = Titanium.UI.createButton({
 });
 r.addEventListener('click',function()
 {
-	// reload feed
 	refreshContent(currCat);
 });
 
@@ -101,7 +101,7 @@ function refreshContent(cat) {
 	    },
 	    timeout:15000
 	});
-	 
+	
 	xhr.open("GET", 'http://cornellsun.com/services/rest/node.json?type='+(categories[cat].type));
 	xhr.send();
 }
@@ -121,7 +121,7 @@ function renderCategories() {
 		
 		t_view = Ti.UI.createView({
 			backgroundColor:'#6E1618',
-			borderRadius:10,
+			borderRadius: (isAndroid) ? 0 : 10,
 			borderWidth:0,
 			borderColor:'#336699',
 			//backgroundSelectedColor:'#3D090A',
@@ -157,22 +157,11 @@ function renderCategories() {
 					currCatLabel.backgroundColor = '#6E1618';
 				}
 				currCatLabel = e.source;
-				Ti.API.info(e.source.backgroundColor);
 				e.source.backgroundColor = '#3D090A';
 			};
 		}
 		
 		t_view.addEventListener('click',handler(j));
-		
-		/*if (!isAndroid) {
-			t_view.addEventListener('touchstart', function(e) {
-				e.source.backgroundColor = "#3D090A";
-			});
-			t_view.addEventListener('touchend', function(e) {
-				e.source.backgroundColor = "#6E1618";
-			});
-		}*/
-		
 	}
 	scrollView.contentWidth = currLeftOffset;
 }

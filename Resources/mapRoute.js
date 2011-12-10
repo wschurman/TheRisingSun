@@ -1,6 +1,4 @@
-// Grab the two points of interest and display them on the map
-// On the map, show a button that allows the user to switch to text view
-// On the text view, show a button that allows the user to switch to map view
+
 
 var win = Titanium.UI.currentWindow;
 

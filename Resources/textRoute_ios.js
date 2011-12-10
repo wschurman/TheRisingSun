@@ -1,3 +1,7 @@
+/*
+ * Controller for the route list view on iOS
+ */
+
 var win = Titanium.UI.currentWindow;
 
 var userStartingPoint = win.from;
@@ -11,17 +15,16 @@ var table = Ti.UI.createTableView({
 var row;
 var tableData = [];
 
-// Create the textual directions
+//
+// Create the textual directions table rows
+//
 for (var k = 0; k < data.directions.length; k++) {
 	row = Ti.UI.createTableViewRow({
-            height: 60,
-            backgroundColor: (k % 2 == 1) ? "#E2E4EA" : "#fff"
-            //hasChild:true,
-            //hasDetail:(i < 2) // for future unread icons
-        });
+        height: 60,
+        backgroundColor: (k % 2 == 1) ? "#E2E4EA" : "#fff"
+    });
 	
-	var view = Titanium.UI.createView({
-	});
+	var view = Titanium.UI.createView();
 	
 	var num = Titanium.UI.createLabel({
 		color:"#333",

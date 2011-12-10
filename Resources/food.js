@@ -68,7 +68,7 @@ function viewReview(uri, name) {
 		
 		w.add(m);
 		
-		Ti.API.debug('HEIGHT: '+m.size.height);
+		//Ti.API.debug('HEIGHT: '+m.size.height);
 		
 		var shadow = Ti.UI.createView({
 			backgroundImage:"images/shadow_b.png",
@@ -99,7 +99,7 @@ function viewReview(uri, name) {
 		var review_xhr = Ti.Network.createHTTPClient({
 		    onload: function() {
 	    		json = JSON.parse(this.responseText);
-	        	Ti.API.debug("ABC: "+this.responseText);
+	        	//Ti.API.debug("ABC: "+this.responseText);
 	        	var review_title = Titanium.UI.createLabel({
 	        		id:'article_title',
 	        		text: json.title,
@@ -173,7 +173,7 @@ function viewReview(uri, name) {
 	        		m.addAnnotations(annotations);
 	        	}
 	        	
-	        	Ti.API.debug("NID: "+json.field_related_story[0].nid);
+	        	//Ti.API.debug("NID: "+json.field_related_story[0].nid);
 	        	review_xhr.open("GET", "http://cornellsun.com/services/rest/node/"+json.field_related_story[0].nid+".json");
 				review_xhr.send();
 			},
@@ -196,7 +196,7 @@ function viewReview(uri, name) {
 function loadRestaurants() {
 	var xhr = Ti.Network.createHTTPClient({
 	    onload: function() {
-	    	Ti.API.debug(this.responseText);
+	    	//Ti.API.debug(this.responseText);
 		    json = JSON.parse(this.responseText);
 		    refreshTable(json);
 		},

@@ -1,14 +1,13 @@
-// Grab the two points of interest and display them on the map
-// On the map, show a button that allows the user to switch to text view
-// On the text view, show a button that allows the user to switch to map view
+/*
+ * Controller for the TCAT route map view on iOS
+ */
 
 var win = Titanium.UI.currentWindow;
+var isAndroid = (Titanium.Platform.name == 'android');
 
 var userStartingPoint = win.from;
 var userDestination = win.to;
 var data = win.data;
-
-var isAndroid = Titanium.Platform.name == 'android';
 
 var mapStartingPoint = Titanium.Map.createAnnotation({
 	latitude:data.startingPoint.latitude,
@@ -47,32 +46,6 @@ var mapview = Titanium.Map.createView({
 	//annotations:[mapStartingPoint, mapDestination]
 });
 
-var shadow = Ti.UI.createView({
-		backgroundImage:"images/shadow_u.png",
-		height:5,
-		width: "100%",
-		bottom: 49
-	});
-	
-var dirview = Ti.UI.createView({
-	bottom: 0, left: 0,
-	width: "100%", height: 50,
-	backgroundColor:"white"
-});
-
-var direction_text = Ti.UI.createLabel({
-	text:"",
-	font:{
-		fontSize:14
-	},
-	width:"auto",
-	top: 5,
-	color: "#111",
-	textAlign:"center"
-});
-
-dirview.add(direction_text);
-
 var pointsArr = [];
 var i;
 for(i = 0; i < win.data.directions.length; i++) {
@@ -101,16 +74,6 @@ if (pointsArr.length > 0) {
 	    points: pointsArr
 	});
 }
-
-/*mapview.addEventListener('click',function(evt)
-{
-	// map event properties
-	Ti.API.debug("CLICKED, evt.cls = "+evt.clicksource);
-	if (evt.clicksource != null && evt.annotation.data != null) {
-		direction_text.text = evt.annotation.data;
-	}
-	
-});*/
 
 // Create the link to the textual directions
 var listBtn = Titanium.UI.createButton({
@@ -141,6 +104,3 @@ Titanium.UI.currentWindow.setRightNavButton(listBtn);
 
 mapview.selectAnnotation(mapStartingPoint);
 win.add(mapview);
-////hello
-//win.add(shadow);
-//win.add(dirview);
