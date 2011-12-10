@@ -8,3 +8,5 @@ build/*
 .settings/com.appcelerator.titanium.mobile.prefs
 
 manifest
+
+Resources/.DS_Store
