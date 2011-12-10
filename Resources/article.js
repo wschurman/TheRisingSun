@@ -29,7 +29,7 @@ function loadImageArticle(data) {
 			data.image_uri = escape(json.images.iphone);
 			data.image_thumb = escape(json.images.thumbnail);
 			data.image_credit = json.name;
-			data.image_caption = json.body.replace( /<[^>]+>/g, '' ).replace( /&nbsp;/g, ' ');
+			data.image_caption = json.body.replace( /<[^>]+>/g, '' ).replace( /&nbsp;/g, ' ').replace( /&amp;/g, '&');
 			loadArticle(data);
 		},
 		onerror: function(e) {
@@ -130,6 +130,10 @@ function loadArticle(data) {
 		
 		s.add(img);
 		
+		if(data.image_credit.length == 0) {
+			data.image_credit = "Sun Staff";
+		}
+		
 		var credit = Ti.UI.createLabel({
 			id: 'photo_credit',
 			text: 'Photo by '+data.image_credit,
@@ -182,6 +186,10 @@ function loadArticle(data) {
 	var author_text = null;
 	var comments_button = null;
 	
+	if(data.name.length == 0) {
+		data.name = 'Sun Staff';	
+	}
+	
 	if (hasImage) {
 		image = Ti.UI.createImageView({
 			id:"img",
@@ -233,6 +241,7 @@ function loadArticle(data) {
 			height: "auto",
 			font: {fontSize: 13},
 		});
+		img_view.add(author_text);
 		
 		comments_button = Titanium.UI.createButton({
 			id:"comments_button_noimg",
@@ -248,18 +257,13 @@ function loadArticle(data) {
 			
 		});
 		
-		img_view.add(author_text);
+		
 		//img_view.add(comments_button);
 	}
 	
-	comments_button.addEventListener('click', function()
-	{
-		openInBrowser();
-	});
-	
 	var body_text = Titanium.UI.createLabel({
 		id:'article_content',
-		text: data.body.replace( /<\/p>/g, '\n' ).replace( /<[^>]+>/g, '' ).replace( /&nbsp;/g, ' '),
+		text: data.body.replace( /<p>/g, '\t\t' ).replace( /<\/p>/g, '\n' ).replace( /<br\s*\/?>/g, '\n\n' ).replace( /<[^>]+>/g, '' ).replace( /&nbsp;/g, ' ').replace( /&amp;/g, '&'),
 		font: {fontSize: (isAndroid) ? 21 : 17},
 		top: 5,
 		height:'auto',

@@ -111,6 +111,10 @@ function viewReview(uri, name) {
 	        	});
 	        	s.add(review_title);
 	        	
+	        	if(json.name.length == 0) {
+	        		json.name = 'Sun Staff';
+	        	}
+	        	
 	        	var review_author = Titanium.UI.createLabel({
 	        		id: 'article_author',
 	        		text: 'By '+json.name,
@@ -125,7 +129,7 @@ function viewReview(uri, name) {
 	        	
 	        	var review_text = Titanium.UI.createLabel({
 					id:'article_content',
-					text: json.body.replace( /<\/p>/g, '\n' ).replace( /<[^>]+>/g, '' ).replace( /&nbsp;/g, ' '),
+					text: json.body.replace( /<p>/g, '\t\t' ).replace( /<\/p>/g, '\n\n' ).replace( /<[^>]+>/g, '' ).replace( /&nbsp;/g, ' '),
 					font: {fontSize: (isAndroid) ? 21 : 17},
 					height:'auto',
 					top:5,
@@ -216,7 +220,7 @@ function refreshTable(json) {
         restaurant = json[i];
         
         row = Ti.UI.createTableViewRow({
-            height: (isAndroid) ? 40 : 45
+            height: (isAndroid) ? 60 : 45
         });
         
         hasImage = false;
@@ -229,7 +233,7 @@ function refreshTable(json) {
         	left: 10,
         	//top: 80,
         	//height:30,
-        	height: 24,
+        	height: 28,
         	//width: (hasImage) ? "70%" : "100%",
         	width: 'auto',
         	//top:(isAndroid) ? 10 : -30,
