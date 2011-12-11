@@ -1,45 +1,8 @@
 Logfile initialized
 [INFO] logfile = /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build.log
-[DEBUG] /Library/Application Support/Titanium/mobilesdk/osx/1.7.5/android/builder.py distribute The Cornell Daily Sun /Users/williamschurman/programming/android-sdk-mac_x86 /Users/williamschurman/programming/Titanium/The Cornell Daily Sun com.thesun.therisingsun /Users/williamschurman/keystores/android.keystore jEbpuAXU3KwA9tbu8Bn cornellsun /Users/williamschurman/Desktop/The Cornell Daily Sun Raw Resources 4
+[DEBUG] /Library/Application Support/Titanium/mobilesdk/osx/1.7.5/android/builder.py distribute The Cornell Daily Sun /Users/williamschurman/programming/android-sdk-mac_x86 /Users/williamschurman/programming/Titanium/The Cornell Daily Sun com.thesun.therisingsun /Users/williamschurman/keystores/android.keystore jEbpuAXU3KwA9tbu8Bn cornellsun /Users/williamschurman/Desktop/The Cornell Daily Sun 4
 [INFO] Titanium SDK version: 1.7.5 (11/02/11 17:00 ab20af7)
 [INFO] Copying project resources..
-[INFO] Detected tiapp.xml change (or assets deleted), forcing full re-build...
-[TRACE] COPYING CREATED FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/android/appicon.png => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/bin/assets/Resources/appicon.png
-[TRACE] COPYING CREATED FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/android/default.png => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/bin/assets/Resources/default.png
-[TRACE] COPYING CREATED FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/app.js => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/bin/assets/Resources/app.js
-[TRACE] COPYING CREATED FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/article.js => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/bin/assets/Resources/article.js
-[TRACE] COPYING CREATED FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/comments.js => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/bin/assets/Resources/comments.js
-[TRACE] COPYING CREATED FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/food.js => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/bin/assets/Resources/food.js
-[TRACE] COPYING CREATED FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/images/1_stars.png => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/bin/assets/Resources/images/1_stars.png
-[TRACE] COPYING CREATED FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/images/2_stars.png => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/bin/assets/Resources/images/2_stars.png
-[TRACE] COPYING CREATED FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/images/3_stars.png => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/bin/assets/Resources/images/3_stars.png
-[TRACE] COPYING CREATED FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/images/4_stars.png => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/bin/assets/Resources/images/4_stars.png
-[TRACE] COPYING CREATED FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/images/5_stars.png => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/bin/assets/Resources/images/5_stars.png
-[TRACE] COPYING CREATED FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/images/bpin.png => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/bin/assets/Resources/images/bpin.png
-[TRACE] COPYING CREATED FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/images/bus.png => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/bin/assets/Resources/images/bus.png
-[TRACE] COPYING CREATED FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/images/currloc.png => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/bin/assets/Resources/images/currloc.png
-[TRACE] COPYING CREATED FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/images/dining.png => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/bin/assets/Resources/images/dining.png
-[TRACE] COPYING CREATED FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/images/map-pin.png => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/bin/assets/Resources/images/map-pin.png
-[TRACE] COPYING CREATED FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/images/map-pin2.png => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/bin/assets/Resources/images/map-pin2.png
-[TRACE] COPYING CREATED FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/images/navigation-down-button.png => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/bin/assets/Resources/images/navigation-down-button.png
-[TRACE] COPYING CREATED FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/images/news.png => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/bin/assets/Resources/images/news.png
-[TRACE] COPYING CREATED FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/images/refresh.png => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/bin/assets/Resources/images/refresh.png
-[TRACE] COPYING CREATED FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/images/shadow_b.png => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/bin/assets/Resources/images/shadow_b.png
-[TRACE] COPYING CREATED FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/images/shadow_u.png => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/bin/assets/Resources/images/shadow_u.png
-[TRACE] COPYING CREATED FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/images/sort.png => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/bin/assets/Resources/images/sort.png
-[TRACE] COPYING CREATED FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/images/star.png => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/bin/assets/Resources/images/star.png
-[TRACE] COPYING CREATED FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/images/tasks_off.png => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/bin/assets/Resources/images/tasks_off.png
-[TRACE] COPYING CREATED FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/images/tasks_on.png => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/bin/assets/Resources/images/tasks_on.png
-[TRACE] COPYING CREATED FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/mapRoute.js => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/bin/assets/Resources/mapRoute.js
-[TRACE] COPYING CREATED FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/mapRoute_ios.js => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/bin/assets/Resources/mapRoute_ios.js
-[TRACE] COPYING CREATED FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/restaurant.js => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/bin/assets/Resources/restaurant.js
-[TRACE] COPYING CREATED FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/restaurantReview.js => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/bin/assets/Resources/restaurantReview.js
-[TRACE] COPYING CREATED FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/restaurantURL.js => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/bin/assets/Resources/restaurantURL.js
-[TRACE] COPYING CREATED FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/sun.js => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/bin/assets/Resources/sun.js
-[TRACE] COPYING CREATED FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/tcat.js => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/bin/assets/Resources/tcat.js
-[TRACE] COPYING CREATED FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/tcat_ios.js => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/bin/assets/Resources/tcat_ios.js
-[TRACE] COPYING CREATED FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/textRoute.js => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/bin/assets/Resources/textRoute.js
-[TRACE] COPYING CREATED FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/textRoute_ios.js => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/bin/assets/Resources/textRoute_ios.js
 [TRACE] Generating Java Classes
 [DEBUG] Processing Android resource drawables
 [TRACE] COPYING FILE: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/Resources/android/images/res-hdpi/bus.png => /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/res/drawable-hdpi/bus_be084cae2b.png
@@ -69,10 +32,6 @@ Logfile initialized
 [INFO] Compiling Android Resources... This could take some time
 [DEBUG] Android classes.dex built
 [DEBUG] creating unsigned apk: /Users/williamschurman/programming/Titanium/The Cornell Daily Sun/build/android/bin/app-unsigned.apk
-[DEBUG] from resource zip => assets/Resources/images/tabs/KS_nav_mashup.png
-[DEBUG] from resource zip => assets/Resources/images/tabs/bus.png
-[DEBUG] from resource zip => assets/Resources/images/tabs/dining.png
-[DEBUG] from resource zip => assets/Resources/images/tabs/news.png
 [DEBUG] from resource zip => assets/Resources/images/1_stars.png
 [DEBUG] from resource zip => assets/Resources/images/2_stars.png
 [DEBUG] from resource zip => assets/Resources/images/3_stars.png

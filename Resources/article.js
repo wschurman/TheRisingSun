@@ -1,4 +1,4 @@
-var ADMOB_PUBLISHER_ID = 'a14ed1a5ee858ea';
+var ADMOB_PUBLISHER_ID = 'a14b82142384341';
 var READ_MORE_TEXT = "Full Web Article";
 
 var win = Titanium.UI.currentWindow;
